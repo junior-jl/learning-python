@@ -25,19 +25,27 @@ print("world")
 
 - Comments in Python are written with the # character.
 
-- Docstrings are, in essence, multiline comments. They are encapsulated by triple quotes
+- Docstrings are regular strings that are not assigned to any variables, being discarded by the interpreter. So, they are sometimes used as multiline comments. More on that later.
 
 ```py
 # This is a comment.
 ''' This 
 is
-also
+not
 a 
-comment.
+comment, but it 
+will be ignored
+by the interpreter.
 '''
+"""This 
+is
+not
+a 
+comment, but it 
+will be ignored
+by the interpreter.
+"""
 ```
-
-Also... Python doesn't care if you use single or double quotes. They are equivalent.
 
 ## Data types
 
@@ -80,6 +88,85 @@ Integers are positive and negative whole numbers and the amount of memory an int
 
 ### Floating-point numbers
 
-Also known as _floats_, refer to positive and negative decimal numbers. A float occupies 24 bytes of memory.
+Also known as _floats_, floats are positive and negative decimal numbers. A float occupies 24 bytes of memory.
 
 In Python, 5 is considered to be an integer, while 5.0 is a float.
+
+### Complex numbers
+
+To create a complex number (numbers that have a real and an imaginary part) we use **complex()** the same way as we would use **print()**. 
+
+```py
+complex(real, imaginary)
+```
+
+Following the _electrical engineering_ convention, Python uses **j** to denote the imaginary part of a number, instead of **i**.
+
+A complex number usually takes up 32 bytes of memory.
+
+## Booleans
+
+The **boolean** (or **bool**) data type allow us to choose between two values: **True** or **False**, yes, T and F capitalized.
+
+It is used to determine whther the logic of an expression or a comparison is correct.
+
+## Strings
+
+A _string_ is a collection of characters closed withing single, double or triple quotation marks. It can also contain a single character or be entirely empty.
+
+### Length of a string
+
+The length of a string can be found by the built-in function **len()**. It indicates the number of characters in the string.
+
+### Indexing
+
+In a string, every character is given a numberical index based on its position. Like most programming languages, Python indexes a string from 0 to n-1 where n is its length. So, the first character in a string is on index 0.
+
+#### Accessing characters
+
+Each character in a string can be accessed using its index. The index must be closed withing square brackets and appended to the string.
+
+```py
+batman = "Bruce Wayne"
+
+first = batman[0]
+space = batman[5]
+last = batman[len(batman) - 1]
+```
+
+If we try to execute 
+
+```py
+err = batman[len(batman)]
+```
+
+we would get an error, because the maximum index is **len(batman) - 1**.
+
+#### Reverse indexing
+
+We can also change our indexing convention by using negative indices. They start from the opposite end of the string. Hence, the index -1 corresponds to the last character.
+
+### String immutability
+
+After assigning a value to a string, trying to update it like **string[0] = 'P'** will cause a **TypeError**, because Python doesn't support item assignment in case of strings.
+
+But, assigning a new value to string variable doesn't mean that you've changed the value.
+
+```py
+str1 = "hello"
+print(id(str1))
+print(str1)
+str1 = "bye"
+print(id(str1))
+print(str1)
+```
+
+This code prints different **id's** through the **id()** method.
+
+### ASCII vs Unicode
+
+In Python 3, all strings are unicode. But older versions of Ppython support only ASCII characters. To use unicode in Python 2, preceding the string with a **u** is a must.
+
+```py
+string = u"This is unicode"
+```

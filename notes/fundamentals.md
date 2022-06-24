@@ -41,3 +41,27 @@ Also... Python doesn't care if you use single or double quotes. They are equival
 
 ## Data types
 
+Python coding is way simpler when talking about data types as it doesn't need the definition of the object data type. There are three main data types:
+
+- numbers;
+- strings;
+- booleans.
+
+## Variables
+
+'A variable is simply a name to which a value can be _assigned_.'
+
+The simplest way to assign a value to a variable is through the '=' operator.
+
+Variables are **mutable**.
+
+### Naming convention
+
+Some rules must be followed when picking the name of a variable:
+
+- it can start with an upper or lower case letter;
+- all names are case sensitive;
+- a number can appear in the name, but not at the beginning;
+- the underscore (\_) character can appear anywhere in the name.
+- spaces are not allowed. Instead use 'snake_case';
+- the name must be meaninful.

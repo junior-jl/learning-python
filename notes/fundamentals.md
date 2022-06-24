@@ -65,3 +65,21 @@ Some rules must be followed when picking the name of a variable:
 - the underscore (\_) character can appear anywhere in the name.
 - spaces are not allowed. Instead use 'snake_case';
 - the name must be meaninful.
+
+## Numbers
+
+There are three main types of numbers in Python:
+
+- Integers;
+- Floating-point numbers;
+- Complex numbers.
+
+### Integers
+
+Integers are positive and negative whole numbers and the amount of memory an integer occupies depends on its value. For example, 0 will take up 24 bytes whereas 1 would occupy 28 bytes.
+
+### Floating-point numbers
+
+Also known as _floats_, refer to positive and negative decimal numbers. A float occupies 24 bytes of memory.
+
+In Python, 5 is considered to be an integer, while 5.0 is a float.

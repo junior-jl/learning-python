@@ -350,4 +350,143 @@ The result of a comparison is always a bool.
 
 ### Assignment operators
 
+A category of operators which is used to assign values to a variable. 
 
+**Operator** | **Purpose** | **Notation**
+|:--:|:--:|:--:|
+| = | Assign | In-fix |
+| += | Add and assign | In-fix |
+| -= | Subtract and assign | In-fix |
+| \*= | Multiply and assign | In-fix |
+| /= | Divide and assign | In-fix |
+| //= | Divide, floor, and assign | In-fix |
+| \*\*= | Raise power and assign | In-fix |
+| %= | Take modulo and assign | In-fix |
+| |= | OR and assign | In-fix |
+| &= | AND and assign | In-fix |
+| ^= | XOR and assign | In-fix |
+| >>= | Right-shift and assign | In-fix |
+| <<= | Left-shift and assign | In-fix 
+
+#### Assigning values
+
+We can change variables values whenever we want. But, one thing to note is: when a variable x is assigned to another variable y, its value is **copied** into y. Hence, if we later change the value of x, y will remain unaffected.
+
+### Logical operators
+
+They are used to manipulate the logic of **Boolean expressions**.
+
+**Operator** | **Purpose** | **Notation**
+|:--:|:--:|:--:|
+| and | AND | In-fix |
+| or | OR | In-fix |
+| not | NOT | Prefix |
+
+#### Bit value
+
+In bit terms, the value of True is 1. False corresponds to 0. So, the code:
+
+```py
+print(10 * True)
+print(10 * False)
+```
+
+will output
+
+```
+10
+0
+```
+
+### Bitwise operators
+
+In programming, all data is actually made up of 0s and 1s known as **bits**. Bitwise operators allow us to perform bit-related operations on values.
+
+**Operator** | **Purpose** | **Notation**
+|:--:|:--:|:--:|
+| & | Bitwise AND | In-fix |
+| | | Bitwise OR | In-fix |
+| ^ | Bitwise XOR | In-fix |
+| ~ | Bitwise NOT | Prefix |
+| << | Shift bits left | In-fix |
+| >> | Shift bits right | In-fix |
+
+## String operations
+
+### Comparison operators
+
+Strings are compatible with the comparison operators. Each characters has a Unicode value. When two strings have different lengths, the string which comes first in the dictionary is said to have the smaller value. So
+
+```py
+print("Slytherin" >= "Gryffindor")
+```
+
+would output True.
+
+### Concatenation
+
+The + operator can be used to merge two strings together. And the \* operator allows us to multiply a string, resulting in a repeating pattern.
+
+Code: 
+```py
+first_half = "Bat"
+second_half = "man"
+full_name = first_half + second_half
+print(full_name)
+print(first_half * 3)
+```
+
+Output:
+```
+Batman
+BatBatBat
+```
+
+### Search
+
+The **in** keyword can be used to check if a particular substring exists in another string.
+
+Code:
+```py
+random_string = "This is a random string"
+print('of' in random_string)  # Check whether 'of' exists in randomString
+print('random' in random_string)  # 'random' exists!
+```
+
+Output
+```
+False
+True
+```
+
+## Grouping values 
+
+In Python, the most popular way of storing multiple values together in a single variable is called a **list**. It is very similar to a string, since it is just a collection of values. However, the values can be of any type. 
+
+### Making a list
+
+All we have to do is enclose all the elements in square brackets and separate them with commas.
+
+Code:
+```py
+my_list = [1, 2.5, "A string", True]
+print(my_list)
+```
+Output:
+```
+[1, 2.5, 'A string', True]
+```
+
+Just like strings, lists can be indexed and sliced, and the **len** command works with them too.
+
+Code:
+```py
+my_list = [1, 2.5, "A string", True]
+print(my_list[2])
+print(len(my_list))
+```
+Output:
+```
+A string
+4
+```

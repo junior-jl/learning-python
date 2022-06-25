@@ -170,3 +170,94 @@ In Python 3, all strings are unicode. But older versions of Ppython support only
 ```py
 string = u"This is unicode"
 ```
+
+### String slicing
+
+Slicing is the process of obtaining a portion (substring) of a string by using its indices.
+
+Given a string, we can use the following template to slice it and obtain a substring:
+
+```py
+string[start:end]
+```
+
+The character at the **end** index will not be included in the substring obtained through this method. So, the code below
+
+```py
+my_string = "This is MY string!"
+print(my_string[0:4])
+print(my_string[1:7])
+print(my_string[8:len(my_string)])
+```
+
+would give us
+
+```
+This
+his is
+MY string!
+```
+
+#### Slicing with a step
+
+Python 3 also allows us to slice a string by defining a step through which we can skip characters in the string. The default step is 1.
+
+The step is defined after the **end** index:
+
+```py
+string[start:end:step]
+```
+Code:
+```py
+my_string = "This is MY string!"
+print(my_string[0:7])  # A step of 1
+print(my_string[0:7:2])  # A step of 2
+print(my_string[0:7:5])  # A step of 5
+```
+
+Output:
+```
+This is
+Ti s
+Ti
+```
+
+#### Reverse slicing
+
+Strings can also be sliced to return a reversed substring. We would need to switch the order of the start and end indices and provide a negative step.
+
+Code:
+
+```py
+my_string = "This is MY string!"
+print(my_string[13:2:-1]) # Take 1 step back each time
+print(my_string[17:0:-2]) # Take 2 steps back.
+```
+
+Output:
+
+```
+rts YM si s
+!nrsY ish
+```
+
+#### Partial slicing
+
+To specify the **start** and **end** indices is optional.
+
+Code:
+```py
+my_string = "This is MY string!"
+print(my_string[:8])  # All the characters before 'M'
+print(my_string[8:])  # All the characters starting from 'M'
+print(my_string[:])  # The whole string
+print(my_string[::-1])  # The whole string in reverse (step is -1)
+```
+
+Output:
+```
+This is 
+MY string!
+This is MY string!
+!gnirts YM si sihT
+```

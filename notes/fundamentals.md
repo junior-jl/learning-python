@@ -261,3 +261,93 @@ MY string!
 This is MY string!
 !gnirts YM si sihT
 ```
+
+## Operators
+
+Operators are used to perform arithmetic and logical operations on data. In general, Python's operators follow the **in-fix** or **prefix** notations.
+
+- **In-fix** operators appear between two **operands**, so they are known as **binary** operators;
+- A **prefix** operator works on one operand and appears before it. Hence, they are known as **unary** operators.
+
+The five main operator types in Python are:
+
+1. arithmetic operators;
+2. comparison operators;
+3. assignment operators;
+4. logical operators;
+5. bitwise operators;
+
+### Arithmetic operators
+
+The table below presents the basic arithmetic operators in order of **precedence**. The operator listed higher will be computed first.
+
+**Operator** | **Purpose** | **Notation**
+|:--:|:--:|:--:|
+| () | Parentheses | Encapsulates the precedent operation |
+| \*\* | Exponent | In-fix |
+| %, \*, /, // | Modulo, multiplication, division, floor division | In-fix |
+| +, - | Addition, subtraction | In-fix |
+
+#### Addition
+
+We can add two numbers using the + operator.
+
+Summing an integer and a float gives us a float. Python automatically converts the integer to float, and this applies to all arithmetic operations.
+
+#### Subtraction
+
+We can subtract one number from other using the - operator.
+
+#### Multiplication
+
+We can multiply two numbers using the \* operator.
+
+#### Division
+
+We can divide one number by another using the / operator. And a division always results in a floating-point number.
+
+#### Floor division
+
+In floor division, the result is _floored_ to the nearest smaller integer, also known as **integer** division.
+
+For floor division, we must use the // operator. Unlike normal division, floor division between two integers results in an integer.
+
+#### Modulo
+
+The modulo operation is done with the % operator. It returns the remainder of the division. The remainder can be a float.
+
+### Precedence
+
+An arithmetic expression containing different operator will be computed on the basis of **operator precedence**. Whenever operators have equal precedence, the expression is computed from the left side.
+
+#### Parentheses
+
+An expression which is enclosed inside parentheses will be computed first, regardless of operator precedence.
+
+### Comparison operators
+
+They are used to compare values in mathematical terms.
+
+**Operator** | **Purpose** | **Notation**
+|:--:|:--:|:--:|
+| > | Greater than | In-fix |
+| < | Less than | In-fix |
+| >= | Greater than or equal to | In-fix |
+| <= | Less than or equal to | In-fix |
+| == | Equal to | In-fix |
+| != | Not equal to | In-fix |
+| is | Equal to (identity) | In-fix |
+| is not | Not equal to (identity) | In-fix |
+
+#### Comparisons
+
+The result of a comparison is always a bool.
+
+##### Difference between == and is, != and is not
+
+- == and != compare the **values** of both operands;
+- is and is not check if the operands are the **exact same object**.
+
+### Assignment operators
+
+

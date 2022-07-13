@@ -362,7 +362,7 @@ A category of operators which is used to assign values to a variable.
 | //= | Divide, floor, and assign | In-fix |
 | \*\*= | Raise power and assign | In-fix |
 | %= | Take modulo and assign | In-fix |
-| |= | OR and assign | In-fix |
+| \|= | OR and assign | In-fix |
 | &= | AND and assign | In-fix |
 | ^= | XOR and assign | In-fix |
 | >>= | Right-shift and assign | In-fix |
@@ -685,3 +685,4 @@ Output:
 ```
 The number is greater than 5
 ```
+

@@ -1112,3 +1112,5 @@ The Fibonacci sequence is a popular series of numbers in mathematics, where ever
 ```
 
 Let's write a function which takes in a number, n, and returns the **nth** number in the Fibonacci sequence. It is important to note that for the following example, we will be trating all inputs **less than 1** as incorrect and therefore, our input will start from 1. So, if **n == 6**, the function will return 5.
+
+First, we handle our base cases. We know that the first two values are always 0 and 1, so that is where we can stop our recursive calls. If **n** is larger than 2, then it will be the sum of the two values before it.

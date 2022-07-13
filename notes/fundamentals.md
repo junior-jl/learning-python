@@ -490,3 +490,198 @@ Output:
 A string
 4
 ```
+
+## What are conditional statements?
+
+A conditional statement is a Boolean expression that, if **True**, executes a piece of code. They control the flow of the code and allow the computer to think. Hence, they are classified as **control structures**.
+
+### Conditional statements in Python
+
+To handle conditional statements, Python follows a particular convention:
+
+```python
+if conditional statement is True:
+    # execute expression1
+    pass
+else:
+    # execute expression2
+    pass
+```
+
+There are three types of conditional statements in Python:
+
+- if
+- if-else
+- if-elif-else
+
+### The structure
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/178770347-5306d869-eb0d-4e90-8d3e-2c491a84b366.png"/>
+</p>
+
+The if statement is made by two parts:
+
+1. The condition
+2. The code to be executed
+
+The colon (:) in the illustration above is necessary to specify the beginning of the if statement's code to be executed. However, the parentheses around the condition are optional. **The code to be executed is idented at least one tab to the right**.
+
+## Indentation
+
+Indentation is essential in Python. Statements with the same level of indentation belong to the same block of code. The convention of our indents must also be consistent throughout a block. So, if two spaces are used to make an indent, we must use two spaces for an indent in the same block.
+
+### The flow of an if statement
+
+An **if** statement runs like this:
+
+**if** the **condition** holds **True**, execute the **code to be executed**. Otherwise, **skip** it and move on.
+
+Example:
+
+```python
+num = 5
+
+if (num == 5):  # The condition is true
+    print("The number is equal to 5")  # The code is executed
+
+if num > 5:  # The condtion is false
+    print("The number is greater than 5")  # The code is not executed
+```
+
+Output:
+
+```
+The number is equal to 5
+```
+
+### Conditions with logical operators
+
+Logical operators can be used to create more complex conditions in the **if** statement.
+
+Example:
+
+```python
+num = 12
+
+if num % 2 == 0 and num % 3 == 0 and num % 4 == 0:
+    # Only works when num is a multiple of 2, 3, and 4
+    print("The number is a multiple of 2, 3, and 4")
+
+if (num % 5 == 0 or num % 6 == 0):
+    # Only works when num is either a multiple of 5 or 6
+    print("The number is a multiple of 5 and/or 6")
+```
+
+In the first **if** statement, all the conditions have to be fulfilled since we are using the **and** operator. In the second one, the Boolean expression would be true if either or both of the clauses are satisfied because we are using the **or** operator.
+
+If statements can be nested using proper indentation.
+
+In a conditional statement, we can edit the values of our variables. Furthermore, we can create new variables.
+
+The **if** statement is the foundation of conditional programming in Python.
+
+### The if-else statement
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/178773988-7d1621a1-1dd5-43b1-888b-575e585fd924.png"/>
+</p>
+
+The **if-else** statement looks something like the image above. There's nothing too tricky going on here. If the **condition** turns out to be **False**, the code after the **else:** keyword is executed.
+
+Note that the **else** keyword will be on the same indentation level as the **if** keyword.
+
+Example:
+
+```python
+num = 60
+
+if num <= 50:
+    print("The number is less than or equal to 50")
+else:
+    print("The number is greater than 50")
+```
+
+Output:
+
+```
+The number is greater than 50
+```
+
+### Benefits of if-else
+
+The code above could also be written with two **if** conditions. However, for the second **if**, we have to specify the condition again. This can be tricky when dealing with complex conditions. The **else** statement automatically handles all the situations when the **if** fails.
+
+## Conditional expressions
+
+Conditional expressions use the functionality of an **if-else** statement in a different way. It returns an output based on the condition we provide. It can be written in the following way:
+
+```python
+output_value1 if condition else output_value2
+```
+
+Hence, the previous code could be written as
+
+```python
+num = 60
+
+output = "The number is less than or equal to 50" \
+    if num <= 50 else "The number is greater than 50"
+
+print(output)
+```
+
+Note that the backslash is only a line continuation character that can be used to split a single line into multiple lines.
+
+## The if-elif-else statement
+
+It allows us to create multiple conditions easily. The **elif** stands for **else if**, indicating that if the previous condition fails, try this one.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/178775595-60f61994-cdbe-4299-9384-e936f8b20683.png"/>
+</p>
+
+The **if** and **else** blocks will remain the same. The **elif** statement comes in between the two.
+
+An important thing to keep in mind is that an **if-elif-else** or **if-elif** statement is not the same as multiple **if** statements. **if** statements act independently. In other words, if the conditions of two successive **if**s are **True**, both statements will be executed. On the other hand, in **if-elif-else**, when a condition evaluates to **True**, the rest of the statement's conditions are not evaluated.
+
+Example:
+
+```python
+num = 10
+
+if num > 5:
+    print("The number is greater than 5")
+
+if num % 2 == 0:
+    print("The number is even")
+
+if not num % 2 == 0:
+    print("The number is odd")
+```
+
+Output:
+
+```
+The number is greater than 5
+The number is even
+```
+
+```python
+num = 10
+
+if num > 5:
+    print("The number is greater than 5")
+
+elif num % 2 == 0:
+    print("The number is even")
+
+else:
+    print("The number is odd and less than or equal to 5")
+```
+
+Output:
+
+```
+The number is greater than 5
+```

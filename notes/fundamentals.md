@@ -686,3 +686,216 @@ Output:
 The number is greater than 5
 ```
 
+## Functions
+
+A function is a reusable set of operations.
+
+Remember the **print()** and **len()** statements? Both always perform predefined tasks. It turns out they were functions all along!
+
+### Why use functions?
+
+Think of a function as a box which performs a task. We give it an input and it returns an output. The primary benefits of using functions are:
+
+- Reusability: a function can be used over and over again. You do not have to write redundant code.
+- Simplicity: functions are easy to use and make the code readable. We only need to know the inputs and the purpose of the function without focusing on the inner workings. 
+
+An input is not even necessary. A function could perform its own computations to complete a task.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/178781768-88834257-600c-4cc4-8823-ef7862a151c6.png"/>
+</p>
+
+### Types of functions in Python
+
+1. Built-in functions
+2. User-defined functions
+
+We've already seen some instance of built-in function such as **len()**, **min()**, and **print()**. The coolest feature, however, is that the language allows us to creat our own functions that perform the tasks we require.
+
+### Function creation
+
+In Python, a function can be _defined_ using the **def** keyword in the following format:
+
+```py
+def function_name (parameters):
+    set of operations to be performed
+    by the function
+```
+
+The **function name** is simply the name we'll use to identify the function.
+
+The **parameters** of a function are the inputs for that function. They are optional. The body of the function contains the set of operations that the function will perform. This is always indented to the right.
+
+### Function parameters
+
+**Parameters** are a crucial part of the function structure. They are the means of passing data to the function. This data can be used by the function to perform a meaningful task.
+
+When creating a function, we must define the number of parameters and their _names_. These names are only relevant to the function and won't affect variable names elsewhere in the code. Parameters are enclosed in parentheses and separated by commas.
+
+The actual values/variables passed into the parameters are known as **arguments**.
+
+#### Example
+
+Let's define our own basic form of the **min()** function that simply prints the minimum. We'll name it **minimum()**:
+
+```python
+def minimum(first, second):
+    if (first < second):
+        print(first)
+    else:
+        print(second)
+
+
+num1 = 10
+num2 = 20
+
+minimum(num1, num2)
+```
+
+Output:
+
+```
+10
+```
+
+Here, we are passing **num1** and **num2** to the function. The positions of the parameters are important. In the case above, the value of **num1** will be assigned to first as it was the first parameter. Similarly, the value of **num2** assigned to second.
+
+If a function is called with lesser or more arguments than originally required, Python will throw an error.
+
+A parameter can be any sort of data object; from a simple integer to a huge list.
+
+## The return statement
+
+To return something from a function, we must use the return keyword. Keep in mind that once the **return** statement is executed, the compiler ends the function. Any remaining lines of code after the return statement will not be executed.
+
+Refactoring the **minimum()** method to reutnr the smaller value instead of printing it, we'll have the following:
+
+```python
+def minimum(first, second):
+    if (first < second):
+        return first
+    return second
+
+
+num1 = 10
+num2 = 20
+
+result = minimum(num1, num2)  # Storing the value returned by the function
+print(result)
+```
+
+It is a good practice to define all our functions first and then begin the main code. Defining them first ensures that they can be used anywhere in the program safely.
+
+## Function scope
+
+The scope of a function means the extent to which the variables and other data items made inside the function are accessible in code.
+
+In Python, the function scope is the function's body. Whenever a function runs, the program moves into the function scope. It moves back to the outer scope once the function has ended.
+
+### Data Lifecycle
+
+In Python, data created inside a function cannot be used from the outside unless it is returned by the function. Hence, when the function ends, the variables within it are realeased from memory and cannot be recovered.
+
+The following code will result in an error:
+
+```python
+def func():
+    name = "Stark"
+
+
+func()
+print(name)  # Accessing 'name' outside the function
+```
+
+As we can see, the **name** variable doesn't exist in the outer scope, and Python lets us know.
+
+Similarly, the function cannot access data outside its scope unless the data is passed in as an argument.
+
+### Altering data
+
+When **mutable data** is passed to a function, the function can modify or alter it. These modifications will stay in effect outside the function scope as well. An example of mutable data is a list.
+
+In the case of **immutable** data, the function can modify it, but the data will remain unchanged outside the function's scope. Examples: numbers, strings, etc.
+
+## Built-in string functions
+
+Python boasts a huge library of built-in functions. As we explore the language further, we'll discover many more of these functions.
+
+### Strings
+
+Functions that are properties of a particular entity are known as **methods**. These methods can be acessed using the dot (.) operator. The string data type has several methods associated with it. Let's look at some of them.
+
+#### Search
+
+An alternative for finding a substring using the **in** keyword is the **find()** method. It returns the first index at which a substring occurs in a string. If no instance of the substring is found, the method returns **-1** (this is a conventional value to represent a **None** or failure).
+
+Suppose a **random_string**, **find()** can be used as follows:
+
+```python
+random_string.find(substring, start, end)
+```
+
+- **substring** is what we are searching for.
+- **start** is the index from which we start searching in **random_string**.
+- **end** is the index where we stop our search in **random_string**.
+
+**start** and **end** are optional.
+
+#### Replace
+
+The **replace()** method can be used to replace a part of a string with another string. Here's the template we must use
+
+```python
+random_string.replace(substring_to_be_replaced, new_string)
+```
+
+The original string is not altered. Instead, a new string with the replaced substring is returned.
+
+#### Changing the letter case
+
+In Python, the letter case of a string can be easily changed using the **upper()** and **lower()** methods.
+
+#### Joining strings
+
+With **join()** method you can join multiple strings. Let's try it out:
+
+```python
+llist = ['a', 'b', 'c']
+print('>>'.join(llist)) # joining strings with >>
+print('<<'.join(llist)) # joining strings with <<
+print(', '.join(llist)) # joining strings with comma and space
+```
+
+Output:
+
+```
+a>>b>>c
+a<<b<<c
+a, b, c
+```
+
+Over here, the **string.join(llist)** returns a single string, with the elements of **llist** separated by **string**. So, the join() method returns a new string with the given elements joined with the specified delimiter.
+
+#### Formatting
+
+The **format()** method can be used to format the specified value(s) and insert them in string's placeholder(s).
+
+```python
+string1 = "Learn Python {version} at {cname}".format(version = 3, cname = "Educative")
+string2 = "Learn Python {0} at {1}".format(3, "Educative")
+string3 = "Learn Python {} at {}".format(3, "Educative")
+
+print(string1)
+print(string2)
+print(string3)
+```
+
+These three 'options' print the same thing. So the output is 
+
+```
+Learn Python 3 at Educative
+Learn Python 3 at Educative
+Learn Python 3 at Educative
+```
+
+The placeholders can be identified using named indexes **{cname}**, numbered indexes **{0}**, or even empty placeholders **{}**.

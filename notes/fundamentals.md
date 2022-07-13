@@ -1054,3 +1054,61 @@ Output:
 ```
 
 The function returns a **filter object** which can be converted to a list using **list()**.  Just like **map()**, this method returns a new object without changing the original list.
+
+## Recursion
+
+Recursion is the process in which a function calls itself during its execution. Each recursive call takes the program one scope deeper into the function.
+
+The recursive calls stop at the **base case**. The base case is a check used to indicate that there should be no further recursion.
+
+### A simple example
+
+Let's write a function which decrements a number recursively until the number becomes 0:
+
+```python
+def rec_count(number):
+    print(number)
+    # Base case
+    if number == 0:
+        return 0
+    rec_count(number - 1)
+    print(number)
+
+rec_count(5)
+```
+
+Output
+
+```
+5
+4
+3
+2
+1
+0
+1
+2
+3
+4
+5
+```
+
+In each call, the value of **number** is printed. We then check whether the base case has been fulfilled. If not, we make a recursive call to the function with the current value decremented.
+
+### Why use recursion?
+
+It is a concept which many find difficult to grasp at first, but it has its advantages. For starters, it can significantly reduce the runtime of certain algorithms, which makes the code more efficient.
+
+Recursion also allows us to easily solve many problems related to **graphs** and **trees** (will be treated later). It is also important in search algorithms.
+
+However, some caution must be taken when using recursion. If we don't specify an appropriate base case or update our arguments as we recurse, the program will reach **infinite recursion** and crash.
+
+### A complex example
+
+The Fibonacci sequence is a popular series of numbers in mathematics, where every number is the sum of the two numbers before it. The first two terms in the series are 0 and 1:
+
+```
+0 1 1 2 3 5 8 13
+```
+
+Let's write a function which takes in a number, n, and returns the **nth** number in the Fibonacci sequence. It is important to note that for the following example, we will be trating all inputs **less than 1** as incorrect and therefore, our input will start from 1. So, if **n == 6**, the function will return 5.

@@ -899,3 +899,158 @@ Learn Python 3 at Educative
 ```
 
 The placeholders can be identified using named indexes **{cname}**, numbered indexes **{0}**, or even empty placeholders **{}**.
+
+## Lambdas
+
+A **lambda** is an anonymous function that returns some form of data. They are defined using the **lambda** keyword. Since they return data, it is a good practice to assign them to a variable.
+
+### Syntax
+
+The following syntax is used to create lambdas:
+
+```
+lambda parameters : expression
+```
+
+In the structure above, the parameters are optional.
+
+Examples:
+
+Below, we have a lambda that triples the value of the parameter and returns this new value.
+
+```python
+triple = lambda num : num * 3 # Assigning the lambda to a variable
+
+print(triple(10)) # Calling the lambda and giving it a parameter
+```
+
+Output:
+
+```
+30
+```
+
+Here's a simple lambda that concatenates the first characters of three strings together:
+
+```python
+concat_strings = lambda a, b, c: a[0] + b[0] + c[0]
+
+print(concat_strings("World", "Wide", "Web"))
+```
+
+Output:
+
+```
+WWW
+```
+
+**Limitation**: a lambda cannot have a multi-line expression. Hence, lambdas are perfect for short, single-line functions. Also, we can use conditional statements within lambdas:
+
+```
+my_func = lambda num: "High" if num > 50 else "Low"
+
+print(my_func(60))
+```
+
+When using conditional statements in lambdas, the **if-else** pair is necessary.
+
+Lambdas are really useful when a function requires another function as its argument.
+
+## Functions as arguments
+
+In Python, one function can become an argument for another function. This is useful in many cases.
+
+Let's make a calculator function that requires the add, subtract, multiply, or divide function along with two numbers as arguments.
+
+```python
+def add(n1, n2):
+    return n1 + n2
+
+
+def subtract(n1, n2):
+    return n1 - n2
+
+
+def multiply(n1, n2):
+    return n1 * n2
+
+
+def divide(n1, n2):
+    return n1 / n2
+
+
+def calculator(operation, n1, n2):
+    return operation(n1, n2)  # Using the 'operation' argument as a function
+
+
+result = calculator(multiply, 10, 20)
+print(result)
+print(calculator(add, 10, 20))
+
+```
+
+Python automatically understands that the **multiply** argument is a function, and so everything works perfectly.
+
+### Using lambdas
+
+```python
+def calculator(operation, n1, n2):
+    return operation(n1, n2)  # Using the 'operation' argument as a function
+
+
+# 10 and 20 are the arguments.
+result = calculator(lambda n1, n2: n1 * n2, 10, 20)
+# The lambda multiplies them.
+print(result)
+
+print(calculator(lambda n1, n2: n1 + n2, 10, 20))
+```
+
+#### More examples
+
+The built-in **map()** function creates a **map object** using an existing list and a function as its parameters. The template for **map()** is:
+
+```python
+map(function, list)
+```
+
+The **function** will be applied, or _mapped_, to all the elements of the **list**.
+
+Below, we'll use **map()** to double the values of an existing list:
+
+```python
+num_list = [0, 1, 2, 3, 4, 5]
+
+double_list = map(lambda n: n * 2, num_list)
+
+print(list(double_list))
+```
+
+Output:
+
+```
+[0, 2, 4, 6, 8, 10]
+```
+
+This creates a new list. The original list remains unchanged.
+
+Another example is the **filter()** function. It requires a function and a list.
+
+**filter()** _filters_ elements from a list if the elements satisfy the condition that is specified in the argument function.
+
+The code below filters all the elements which are greater than 10.
+
+```python
+numList = [30, 2, -15, 17, 9, 100]
+
+greater_than_10 = list(filter(lambda n: n > 10, numList))
+print(greater_than_10)
+```
+
+Output:
+
+```
+[30, 17, 100]
+```
+
+The function returns a **filter object** which can be converted to a list using **list()**.  Just like **map()**, this method returns a new object without changing the original list.

@@ -511,3 +511,162 @@ Polymorphism is a very important concept in object-oriented-programming. Method 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/69206952/179078353-db38eb57-e8cf-4d0c-bff3-f0b652e0aa0f.png"/>
 </p>
+
+### Class methods and static methods
+
+#### Class methods
+
+Class methods work with class variables and are accessible using the class name rather than its object. Since all class objects share the class variables, class methods are used to access and modify class variables.
+
+##### Syntax
+
+To declare a method as a class method, we use the decorator **@classmethod**. **cls** is used to refer to the class just like **self** is used to refer to the object of the class. Just like instance methods, all class methods have **at least one** argument **cls**.
+
+```python
+class MyClass:
+  classVariable = 'educative'
+  
+  @classmethod
+  def demo(cls):
+    return cls.classVariable
+    
+```
+
+#### Static methods
+
+Static methods are methods that are usually limited to class only and not their objects. They have no direct relation to class variables or instance variables. They are used as utility functions inside the class or when we do not want the inherited classes (more on this later) to modify a method definition.
+
+They can be accessed using the class name or the object name.
+
+##### Syntax
+
+To declare a method as a static method, we used the decorator **@staticmethod**. It does not use a reference to the object or class, so we do not have to use **self** or **cls**. We can pass as many arguments as we want and use this method to perform any function without interfering with the instance or class variables.
+
+```python
+class MyClass:
+  
+  @staticmethod
+  def demo()
+    print("I am a static method")
+```
+
+Static methods do not know anything about the state of the class, i.e., they cannot modify class attributes. The purpose of a static method is to use its parameters and produce a useful result.
+
+Suppose that there is a class, **BodyInfo**, containing information about the physical attributes of a person. We can make a static method for calculating the BMI of any given weight and height:
+
+```python
+class BodyInfo:
+
+    @staticmethod
+    def bmi(weight, height):
+        return weight / (height**2)
+
+
+weight = 75
+height = 1.8
+print(BodyInfo.bmi(weight, height))
+```
+
+## Access modifiers
+
+In Python, we can impose access restrictions on different data members and member functions. The restrictions are specified through **access modifiers**. Access modifiers are tags we can associate with each member to define which parts of the program can access it directly.
+
+### Public attributes
+
+**Public attributes** are those that can be accessed inside the class and outside the class. By default, all methods and properties in a class are publicly avaliable. If we want to suggest that a method should not be used publicly, we have to declare it as private explicitly.
+
+Example:
+
+```python
+class Employee:
+    def __init__(self, ID, salary):
+        # all properties are public
+        self.ID = ID
+        self.salary = salary
+
+    def displayID(self):
+        print("ID:", self.ID)
+
+
+Steve = Employee(3789, 2500)
+Steve.displayID()
+print(Steve.salary)
+```
+
+In the code above, the properties ID and salary and the method **displayID()** are _public_ as they can be accessed in the class as well as outside the class.
+
+### Private attributes
+
+Private attributes cannot be accessed directly from outside the class but can be accessed from inside the class.
+
+The aim is to keep it hiddent from the users and other classes. Unlike in many different languages, it is not a widespread practice in Python to keep the data members private since we do not want to create hindrances for the users. We can make members private using the double underscore **\_\_** prefix. Trying to access private attributes in the main code will generate an _error_. An example is shown below.
+
+```python
+class Employee:
+    def __init__(self, ID, salary):
+        self.ID = ID
+        self.__salary = salary  # salary is a private property
+
+
+Steve = Employee(3789, 2500)
+print("ID:", Steve.ID)
+print("Salary:", Steve.__salary)  # this will cause an error
+```
+
+- ID is a public property, but \_\_salary is a private property, so it cannot be accessed outside the class
+- When it is tried to be accessed outside the class, the following error is generated
+
+```
+'Employee' object has no attribute '__salary'
+```
+
+- To ensure that no one from the outside knows about this private property, the error does not reveal its identity.
+
+### Private methods
+
+```python
+class Employee:
+    def __init__(self, ID, salary):
+        self.ID = ID
+        self.__salary = salary  # salary is a private property
+
+    def displaySalary(self):  # displaySalary is a public method
+        print("Salary:", self.__salary)
+
+    def __displayID(self):  # displayID is a private method
+        print("ID:", self.ID)
+
+
+Steve = Employee(3789, 2500)
+Steve.displaySalary()
+Steve.__displayID()  # this will generate an error
+```
+
+- ID is a public property, so it can be accessed from outside and inside the class.
+- \_\_salary is a private property, so it cannot be accessed outside the class but can be accessed from inside the class.
+- The displaySalary() method is a public method, so it can be accessed from outside the class. This method can access the private property, \_\_salary, as well.
+- The \_\_displayID() method is a private method, so it cannot be accessed from outside the class.
+- When you try to access displayID() from outside the class, the following error is generated:
+```
+'Employee' object has no attribute '__displayID()'
+```
+- To ensure that no one from the outside knows about this private property, the error does not reveal its identity.
+
+#### Accessing private attributes in the main code
+
+As discussed above, it is not common to have private variables in Python.
+
+Properties and methods with the double underscore prefix are usually present to make sure that the user does not _carelessly_ access them. Python allows for free hand to the user to avoid any future complications in the code. If the user believes it is **absolutely necessary** to access a private property or a method, they can access it using the \_<ClassName> prefix for the property or method. An example of this is shown below:
+  
+```python
+class Employee:
+  def __init__(self, ID, salary):
+      self.ID = ID
+      self.__salary = salary  # salary is a private property
+
+
+Steve = Employee(3789, 2500)
+print(Steve._Employee__salary)  # accessing a private property
+```
+  
+Protected properties and methods in other languages can be accessed by classes and their subclasses, which will be discussed later in the course. As we have seen, Python does not have a strict rule for accessing properties and methods, so it does not have the protected access modifier.

@@ -4,6 +4,27 @@
 #If the price is between 100 and 200 (100 inclusive), there will be a 10% discount.
 #If the price is less than 100, there will be a 5% discount.
 #If the price is negative, there will be no discount.
+
+# My solution
+
+# 'price' has already been created
+if price > 300:
+    discount = 0.3
+elif price < 300 and price >= 200:
+    discount = 0.2
+elif price < 200 and price >= 100:
+    discount = 0.1
+elif price < 100 and price >= 0:
+    discount = 0.05
+else:
+    discount = 0
+
+# price = price - price*discount 
+price -= price*discount
+print(price)
+
+
+# Educative solution
 price = 250
 
 if price >= 300:
@@ -16,3 +37,4 @@ elif price < 100 and price >= 0:
     price *= 0.95  # (1 - 0.05)
 
 print(price)
+

@@ -1114,3 +1114,220 @@ The Fibonacci sequence is a popular series of numbers in mathematics, where ever
 Let's write a function which takes in a number, n, and returns the **nth** number in the Fibonacci sequence. It is important to note that for the following example, we will be trating all inputs **less than 1** as incorrect and therefore, our input will start from 1. So, if **n == 6**, the function will return 5.
 
 First, we handle our base cases. We know that the first two values are always 0 and 1, so that is where we can stop our recursive calls. If **n** is larger than 2, then it will be the sum of the two values before it.
+
+## Loops
+
+A loop is a **control structure** that is used to perform a set of instructions for a specific number of times. It solves the problem of having to write the same set of instructions over and over again.
+
+One of the biggest applications of loops is traversing data structures, e.g., lists, tuples, sets, etc. In such a case, the loop **iterates** over the elements of the data structure while performing a set of operations each time.
+
+### Loops in Python
+
+There are two types of loops that can be used in Python:
+
+1. The **for** loop
+2. The **while** loop
+
+
+## The for loop
+
+A **for** loop uses an **iterator** to traverse a sequence, e.g. a range of numbers, the elements of a list, etc. In simple terms, the iterator is a variable that goes through the list.
+
+### Structure
+
+In a **for** loop, we define three main things:
+
+1. The name of the iterator
+2. The sequence to be traversed
+3. The set of operations to perform
+
+```
+for iterator in sequence :
+    set of operations
+    to be performed
+```
+
+The **in** keyword specifies that the iterator will go through the values _in_ the sequence/data structure.
+
+### Looping through a range
+
+In Python, the built-in **range()** function can be used to create a sequence of integers. This sequence can be iterated over through a loop. A range is specified in the following format:
+
+```python
+range(start, end, step)
+```
+
+- The **end** value is not included in the list.
+- If the **start** index is not specified, its default value is 0.
+- The **step** decides the number of steps the iterator jumps ahead after each iteration. It is optional and the default is 1.
+
+Examples:
+
+```python
+for i in range(1, 11):  # A sequence from 1 to 10
+    if i % 2 == 0:
+        print(i, " is even")
+    else:
+        print(i, " is odd")
+```
+
+Output:
+
+```
+1  is odd
+2  is even
+3  is odd
+4  is even
+5  is odd
+6  is even
+7  is odd
+8  is even
+9  is odd
+10  is even
+```
+
+Code:
+
+```python
+for i in range(1, 11, 3):
+    print(i)
+```
+
+Output:
+
+```
+1
+4
+7
+10
+```
+
+### Looping through a list/string
+
+A list or string can be iterated through its indices. Let's double each value in a list using a **for** loop.
+
+```python
+float_list = [2.5, 16.42, 10.77, 8.3, 34.21]
+print(float_list)
+
+for i in range(0, len(float_list)):
+    float_list[i] = float_list[i] * 2
+    
+print(float_list)
+```
+
+Output:
+
+```
+[2.5, 16.42, 10.77, 8.3, 34.21]
+[5.0, 32.84, 21.54, 16.6, 68.42]
+```
+
+We could also traverse the elements of a list/string directly through the iterator. In the **float_list** above, let's check how many elements are greater than 10.
+
+```python
+float_list = [2.5, 16.42, 10.77, 8.3, 34.21]
+count_greater = 0
+
+for num in float_list:
+    if num > 10
+        count_greater += 1
+        
+print(count_greater)
+```
+
+Output:
+
+```
+3
+```
+
+### Nested for loops
+
+Python lets us easily create loops within loops. There's only one catch: the inner loop will always complete before the outer loop.
+
+Let's take an example. Suppose we want to print two elements whose sum is equal to a certain number n. The simplest way would be to compare every element with the rest of the list. A nested **for** loop is perfect for this:
+
+```python
+n = 50
+num_list = [10, 4, 23, 6, 18, 27, 47]
+
+for n1 in num_list:
+    for n2 in num_list:
+        if(n1 + n2 == n):
+            print(n1, n2)
+```
+
+Output:
+
+```
+23 27
+27 23
+```
+
+### The break keyword
+
+Sometimes, we need to exit the loop before it reaches the end. In the example above, at a certain point of the code execution, **n1** is 23 and **n2** is 27. Our condition of **n1 + n2 == n** has been fulfilled, but the loops keep running and comparing all other pairs as well. This is why the pair is printed twice. It would be nice to just stop it when the pair is found once. 
+
+That's what the **break** keyword is for. It can _break_ the loop whenever we want. Adding it to the example above:
+
+```python
+n = 50
+num_list = [10, 4, 23, 6, 18, 27, 47]
+found = False # This bool will become true once a pair is found
+
+for n1 in num_list:
+    for n2 in num_list:
+        if(n1 + n2 == n):
+            found = True
+            break
+    if found:
+        print(n1, n2)
+        break
+```
+
+Output:
+
+```
+23 27
+```
+
+### The continue keyword
+
+When the **continue** keyword is used, the rest of that particular iteration is skipped. The loop _continues_ on to the next iteration.
+
+```python
+num_list = list(range(0,10))
+
+for num in num_list:
+    if num == 3 or num == 6 or num == 8:
+        continue
+    print(num)
+```
+
+Output:
+
+```
+0
+1
+2
+4
+5
+7
+9
+```
+
+The loop goes into the **if** block when **num** is 3, 6, 8. When this happens, **continue** is executed and the rest of the iteration, including the **print()** statement is skipped.
+
+### The pass keyword
+
+Basically, it does nothing to the code execution. It can be used to represent an area of code that needs to be written. Hence, it is simply there to assist you when you haven't written a piece of code but still need your entire program to execute.
+
+```python
+num_list = list(range(20))
+
+for num in num_list:
+    pass
+    
+print(len(num_list))
+```

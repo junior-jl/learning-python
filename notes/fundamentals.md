@@ -1331,3 +1331,55 @@ for num in num_list:
     
 print(len(num_list))
 ```
+
+## The while loop
+
+The **while** loop keeps iterating over a certain set of operations as long as a certain **condition** holds **True**. It operates using the following logic:
+
+_While this condition is true, keep the loop running_.
+
+### Structure
+
+The **while** loop execution is based solely on the condition associated with it.
+
+```
+while condition is true
+    loop over this set of operations
+```
+
+Example:
+
+This is a while loop that finds out the maximum power of **n** before the value exceeds 1000.
+
+```python
+n = 2
+power = 0
+val = n
+while val < 1000:
+    power += 1
+    val *= n
+print(power)
+```
+
+Output: 9
+
+### Cautionary measures
+
+A **while** loop has a big potential to never end, and this could crash a program. For example:
+
+```python
+while(True):
+    print("Hello World")
+ 
+x = 1
+while(x > 0):
+    x += 5
+```
+
+The loops above will never end because their conditions always remain true. So, we should always make sure that our condition has a mutable variable/object that is being updated in the loop and will eventually turn the condition false.
+
+#### Other properties
+
+The **break**, **continue**, and **pass** keywords work with **while** loops. Also, we can nest **while** loops and even nest **while** and **for** loops together.
+
+

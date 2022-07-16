@@ -670,3 +670,8 @@ print(Steve._Employee__salary)  # accessing a private property
 ```
   
 Protected properties and methods in other languages can be accessed by classes and their subclasses, which will be discussed later in the course. As we have seen, Python does not have a strict rule for accessing properties and methods, so it does not have the protected access modifier.
+
+  
+## Information hiding
+  
+**Information hiding** refers to the concept of **hiding the inner workings of a class** and simply providing an interface through which the outside world can interact with the class without knowing what's going on inside.

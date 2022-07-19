@@ -806,3 +806,455 @@ If you comment the last line, the program will work.
 We can observe that **no one** can access, change, or print the **\_\_password** and **\_\_userName** fields directly from the main code. This is a proper implementation of encapsulation.
 
 - For encapsulating a class, all the properties should be private and any access to the properties should be through methods such as _getters_ and _setters_.
+
+## Inheritance
+
+Inheritance provides a way to create a new class from an existing class. The new class is a specialized version of the existing class such that it _inherits_ all the _non-private fields_ (variables) and _methods_ of the existing class. The existing class is used as a starting point or as a _base_ to create the new class.
+
+### The IS A relationship
+
+- Square **IS A** shape
+- Python **IS A** programming language
+- Car **IS A** vehicle
+
+So, we can conclude that we can build new classes by extending _existing classes_
+
+Existing class | Derived class
+:--: | :--:
+Shape | Square
+Programming language | Python
+Vehicle | Car
+
+### The Python object class
+
+The primary purpose of object-oriented programming is to enable a programmer to model the real-world objects using a programming language.
+
+In Python, whenever we create a **class**, it is, by default, a subclass of the build-in Python **object class**. This makes it an excellent example of inheritance in Python. This class has very few properties and methods, but id does provide a strong basis for object-oriented programming in Python.
+
+### Terminologies
+
+In inheritance, in order to create a new class based on an existing class, we use the following terminology:
+
+- Parent class (super class or base class): this class allows the _reuse_ of its **public** properties in another class.
+- Child class (sub class or derived class): this class _inherits_ or _extends_ the superclass.
+
+### Syntax
+
+In Python, to implement inheritance, the syntax is quite similar to the basic class definition. The syntax is given below:
+
+```python
+class ParentClass:
+  # attributes of the parent class
+  
+class ChildClass(ParentClass):
+  # attributes of the child class
+```
+
+#### Example
+
+Let's take an example of a Vehicle class as the _parent class_ and implement a **Car** class that will extend from this Vehicle class. Because a _car_ **IS A** _vehicle_, the implementation of inheritance relation between these classes will stand valid.
+
+```python
+class Vehicle:
+  def __init__(self, make, color, model):
+    self.make = make
+    self.color = color
+    self.model = model
+    
+  def printDetails(self):
+    print("Manufacturer:", self.make)
+    print("Color:", self.color)
+    print("Model:", self.model)
+    
+class Car(Vehicle):
+  def __init__(self, make, color, model, doors):
+    # calling the constructor from parent class
+    Vehicle.__init__(self, make, color, model)
+    self.doors = doors
+  
+  def printCarDetails(self):
+    self.printDetails()
+    print("Doors:", self.doors)
+    
+obj1 = Car("Suzuki", "Grey", "2015", 4)
+obj1.printCarDetails()
+```
+
+- In the code above, we have defined a parent class, Vehicle, and a child class, Car.
+- Car inherits all the properties and methods of the Vehicle class and can access and modify them.
+- For example, we have called the **printDetails()** method, which was actually defined in the Vehicle class in the **printCarDetails()** method.
+
+### The super function
+
+The use of **super()** comes into play when we implement inheritance. It is used in a child class to **refer** to the parent class without explicitly naming it. It makes the code more manageable, and there is no need to know the name of the parent class to access its attributes.
+
+### Use cases of the **super()** function
+
+#### Accessing parent class properties
+
+Consider the fields name **fuelCap** defined inside a Vehicle class to keep track of the _fuel capacity_ of a vehicle. Another class named Car extends from this Vehicle class. We declare a **class property** inside the Car class with the same name, i.e., fuelCap, but with a differnt value. Now, if we want to refer to the fuelCap field of the parent class inside the child class, we will have to use the **super()** function.
+
+```python
+class Vehicle:  # defining the parent class
+    fuelCap = 90
+
+
+class Car(Vehicle):  # defining the child class
+    fuelCap = 50
+
+    def display(self):
+        # accessing fuelCap from the Vehicle class using super()
+        print("Fuel cap from the Vehicle Class:", super().fuelCap)
+
+        # accessing fuelCap from the Car class using self
+        print("Fuel cap from the Car Class:", self.fuelCap)
+
+
+obj1 = Car()  # creating a car object
+obj1.display()  # calling the Car class method display()
+```
+
+#### Calling the parent class methods
+
+Just like properties, super() is also used with methods. Whenever a parent class and the immediate child class have any methods with the same name, we use super() to access the methods from the parent class inside the child class. Let's go through an example:
+
+```python
+class Vehicle:  # defining the parent class
+    def display(self):  # defining display method in the parent class
+        print("I am from the Vehicle Class")
+
+
+class Car(Vehicle):  # defining the child class
+    # defining display method in the child class
+    def display(self):
+        super().display()
+        print("I am from the Car Class")
+
+
+obj1 = Car()  # creating a car object
+obj1.display()  # calling the Car class method display()
+```
+
+#### Using with initializers
+
+Another essential use of the function super() is to call the initializer of the parent class from inside the initalizer of the child class.
+
+Below, we have two codes that perform the same way to show that the call to super() in a method or an initializer is not necessarily in the first line of the method.
+
+```python
+class ParentClass():
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
+
+class ChildClass(ParentClass):
+    def __init__(self, a, b, c):
+        super().__init__(a, b)
+        self.c = c
+
+
+obj = ChildClass(1, 2, 3)
+print(obj.a)
+print(obj.b)
+print(obj.c)
+```
+
+```python
+class ParentClass():
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
+
+class ChildClass(ParentClass):
+    def __init__(self, a, b, c):
+        self.c = c
+        super().__init__(a, b)
+
+
+obj = ChildClass(1, 2, 3)
+print(obj.a)
+print(obj.b)
+print(obj.c)
+```
+
+Now, let's take a previous example and use super() to refer to the parent class:
+
+```python
+class Vehicle:
+    def __init__(self, make, color, model):
+        self.make = make
+        self.color = color
+        self.model = model
+
+    def printDetails(self):
+        print("Manufacturer:", self.make)
+        print("Color:", self.color)
+        print("Model:", self.model)
+
+
+class Car(Vehicle):
+    def __init__(self, make, color, model, doors):
+        Vehicle.__init__(self, make, color, model)
+        self.doors = doors
+
+    def printCarDetails(self):
+        self.printDetails()
+        print("Door:", self.doors)
+
+
+obj1 = Car("Suzuki", "Grey", "2015", 4)
+obj1.printCarDetails()
+```
+
+```python
+class Vehicle:
+    def __init__(self, make, color, model):
+        self.make = make
+        self.color = color
+        self.model = model
+
+    def printDetails(self):
+        print("Manufacturer:", self.make)
+        print("Color:", self.color)
+        print("Model:", self.model)
+
+
+class Car(Vehicle):
+    def __init__(self, make, color, model, doors):
+        super().__init__(make, color, model)
+        self.doors = doors
+
+    def printCarDetails(self):
+        self.printDetails()
+        print("Door:", self.doors)
+
+
+obj1 = Car("Suzuki", "Grey", "2015", 4)
+obj1.printCarDetails()
+```
+
+### Types of inheritance
+
+Based upon parent classes and child classes, there exists the following **five** types of inheritance:
+
+1. Single
+2. Multi-level
+3. Hierarchical
+4. Multiple
+5. Hybrid
+
+#### Single inheritance
+
+In single inheritance, there is only a single class extending from another class. We can take the example of the Vehicle class as the parent class, and the Car class as the child class.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/179842181-e3ff8ac2-2c4b-4c86-99dd-05655a99de67.png"/>
+</p>
+
+```python
+class Vehicle:  # parent class
+    def setTopSpeed(self, speed):  # defining the set
+        self.topSpeed = speed
+        print("Top speed is set to", self.topSpeed)
+
+
+class Car(Vehicle):  # child class
+    def openTrunk(self):
+        print("Trunk is now open.")
+
+
+corolla = Car()  # creating an object of the Car class
+corolla.setTopSpeed(220)  # accessing methods from the parent class
+corolla.openTrunk()  # accessing method from its own class
+```
+
+#### Multi-level inheritance
+
+When a class is derived from a class which itself is derived from another class, it is called multilevel inheritance. We can extend the classes to as many levels as we want to.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/179842465-316006f5-af9e-40f8-a2fb-5bb83c6bc4e8.png"/>
+</p>
+
+Let’s implement the three classes illustrated above:
+
+- A car IS A vehicle
+- A hybrid IS A car
+
+```python
+class Vehicle:  # parent class
+    def setTopSpeed(self, speed):  # defining the set
+        self.topSpeed = speed
+        print("Top speed is set to", self.topSpeed)
+
+
+class Car(Vehicle):  # child class of Vehicle
+    def openTrunk(self):
+        print("Trunk is now open.")
+
+
+class Hybrid(Car):  # child class of Car
+    def turnOnHybrid(self):
+        print("Hybrid mode is now switched on.")
+
+
+priusPrime = Hybrid()  # creating an object of the Hybrid class
+priusPrime.setTopSpeed(220)  # accessing methods from the parent class
+priusPrime.openTrunk()  # accessing method from the parent class
+priusPrime.turnOnHybrid()  # accessing method from the child class
+```
+
+#### Hierarchical inheritance
+
+In hierarchical inheritance, more than one class extends from the same base class. The common attributes of these child classes are implemented inside the base class.
+
+Example:
+
+- A car **IS A** vehicle
+- A truck **IS A** vehicle
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/179842887-cc329eb9-fc4a-4949-97d4-529eb050bc04.png"/>
+</p>
+
+```python
+class Vehicle:  # parent class
+    def setTopSpeed(self, speed):  # defining the set
+        self.topSpeed = speed
+        print("Top speed is set to", self.topSpeed)
+
+
+class Car(Vehicle):  # child class of Vehicle
+    pass
+
+
+class Truck(Vehicle):  # child class of Vehicle
+    pass
+
+
+corolla = Car()  # creating an object of the Car class
+corolla.setTopSpeed(220)  # accessing methods from the parent class
+
+volvo = Truck()  # creating an object of the Truck class
+volvo.setTopSpeed(180)  # accessing methods from the parent class
+```
+
+#### Multiple inheritance
+
+When a class is derived from more than one base class, i.e., when a class has more than one immediate parent class, it is called multiple inheritance.
+
+Example:
+- HybridEngine IS A ElectricEngine
+- HybridEngine IS A CombustionEngine as well.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/179843170-a6b4e547-b4ee-4ef7-be35-5807105acffd.png"/>
+</p>
+
+```python
+class CombustionEngine():  
+    def setTankCapacity(self, tankCapacity):
+        self.tankCapacity = tankCapacity
+
+
+class ElectricEngine():  
+    def setChargeCapacity(self, chargeCapacity):
+        self.chargeCapacity = chargeCapacity
+
+# Child class inherited from CombustionEngine and ElectricEngine
+class HybridEngine(CombustionEngine, ElectricEngine):
+    def printDetails(self):
+        print("Tank Capacity:", self.tankCapacity)
+        print("Charge Capacity:", self.chargeCapacity)
+
+car = HybridEngine()
+car.setChargeCapacity("250 W")
+car.setTankCapacity("20 Litres")
+car.printDetails()
+```
+
+#### Hybrid inheritance
+
+A type of inheritance which is a combination of Multiple and Multi-level inheritance is called _hybrid inheritance_.
+
+- CombustionEngine IS A Engine
+- ElectricEngine IS A Engine
+- HybridEngine IS A ElectricEngine and a CombustionEngine
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/179843403-160c98f6-c116-4ec1-937b-1e77dd7209b6.png"/>
+</p>
+
+```python
+class Engine:  # Parent class
+    def setPower(self, power):
+        self.power = power
+
+
+class CombustionEngine(Engine):  # Child class inherited from Engine
+    def setTankCapacity(self, tankCapacity):
+        self.tankCapacity = tankCapacity
+
+
+class ElectricEngine(Engine):  # Child class inherited from Engine
+    def setChargeCapacity(self, chargeCapacity):
+        self.chargeCapacity = chargeCapacity
+
+# Child class inherited from CombustionEngine and ElectricEngine
+
+
+class HybridEngine(CombustionEngine, ElectricEngine):
+    def printDetails(self):
+        print("Power:", self.power)
+        print("Tank Capacity:", self.tankCapacity)
+        print("Charge Capacity:", self.chargeCapacity)
+
+
+car = HybridEngine()
+car.setPower("2000 CC")
+car.setChargeCapacity("250 W")
+car.setTankCapacity("20 Litres")
+car.printDetails()
+```
+
+### Advantages of inheritance
+
+#### Reusability
+
+It makes the code reusable. Consider that you are up for designing a banking system using classes. Your model might have these:
+
+- A parent class: BankAccount
+- A child class: SavingsAccount
+- Another child class: CheckingAccount
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/179843705-e14a7a28-0dfa-444f-8a69-93e6986c19ec.png"/>
+</p>
+
+In the above example, you don't need to duplicate the code for the **deposit()** and **withdraw()** methods inside the child classes. 
+
+#### Code modification
+
+Suppose you put the same code in different classes, but what happens when you have to make changes to a function and in several places? There is a high likelihood that you will forget some places and bugs will be introduced. You can avoid this with inheritance, which will ensure that all changes are localized, and inconsistencies are avoided.
+
+#### Extensibility
+
+It provides an easy way to upgrade or enhance specific parts of a product wihtout changing the core attributes. An existing class can act as a base class from which a new class with upgraded features can be derived.
+
+In the example above, you realize at a later point that you have to diversify this banking application by adding another class for MoneyMarketAccount. So, rather than implementing this class from scratch, you can extend it from the existing BankAccount class as a starting point. You can also reuse its attributes that are common with MoneyMarketAccount.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/179844255-6b263d4d-7ef8-4b4d-ae47-bbe7040ad262.png"/>
+</p>
+
+#### Data hiding
+
+The base class can keep some data private so that the derived class cannot alter it. 
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/179844402-25a7f5dc-1364-4e25-aaab-055bf5dd998c.png"/>
+</p>
+
+

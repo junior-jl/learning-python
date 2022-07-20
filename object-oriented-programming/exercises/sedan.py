@@ -32,3 +32,5 @@ class Sedan(Car):
     def setStop(self):
         self.engine.stop()
         
+        
+# Educative solution was exactly the same.

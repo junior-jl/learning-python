@@ -1685,3 +1685,133 @@ square = Square(4)
 - Note: Methods with @abstractmethod decorators must be defined in the child class.
 
 By using abstract base classes, we can control classes whose objects can or cannot be created.
+
+## Object relationships
+
+The concepts of inheritance and polymorphism taught us how to create dependent classes out of a base class. While inheritance represents a relationship between classes, there are situations where there are relationships between objects.
+
+### Relationships between classes
+
+There are three main class relationships we need to know. We have studied the **IS A** relation. Let's study the other two below.
+
+#### Part-of
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/180064036-1b9c6313-e6e2-4919-9e4e-320c5649efe5.png"/>
+</p>
+
+In this relationship, one class object is a component of another class object. An instance of the component class can only be created inside the main class. In the example above, class B and class C have their own implementations, but their objects are only created once a class A object is created. Hence, **part-of** is a dependent relationship.
+
+#### Has-a
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/180064389-ad17d38d-f12b-45cf-9113-a0f420e5304c.png"/>
+</p>
+
+This is a slightly less concrete relationship between two classes. Class A and class B have a **has-a** relationship if one or both need the other's object to perform an operation, but both class objects can exist independently of each other. 
+
+### Association
+
+In OOP, **association** is the common term for both the **has-a** and **part-of** relationships but is not limited to these. Two objects are in an association relationship is a generic statement, which means that we don't worry about the lifetime dependency between the objects.
+
+### Aggregation
+
+Aggregation follow the **has-a** model. This creates a parent-child relationship between to classes, with one class owning the object of another.
+
+#### Independent lifetimes
+
+In aggregation, the lifetime of the owned object does not depend on the lifetime of the owner.
+
+The owner object could get deleted, but the owned object can continue to exist in the program. In aggregation, the parent only contains a **reference** to the child, which removes the child's dependency.
+
+#### Example
+
+Let's take the example of people and their country of origin. Each person is associated with a country, but the country can exist without the person.
+
+```python
+class Country:
+    def __init__(self, name=None, population=0):
+        self.name = name
+        self.population = population
+
+    def printDetails(self):
+        print("Country Name:", self.name)
+        print("Country Population", self.population)
+
+
+class Person:
+    def __init__(self, name, country):
+        self.name = name
+        self.country = country
+
+    def printDetails(self):
+        print("Person Name:", self.name)
+        self.country.printDetails()
+
+
+c = Country("Wales", 1500)
+p = Person("Joe", c)
+p.printDetails()
+
+# deletes the object p
+del p
+print("")
+c.printDetails()
+```
+
+As we can see, the Country object c lives on even after we delete the Person object p. This creates a weaker relationship between the two classes.
+
+### Composition
+
+Composition is the practice of accessing other class objects in your class. In such a scenario, the class which creates the object of the other class is known as the owner and is responsible for the lifetime of that object.
+
+Composition relationships are **part-of** relationships where the part must constitute a segment of the whole object. We can achieve composition by adding smaller parts of other classes to make a complex unit.
+
+#### Example
+
+A car is composed of an engine, tires, and doors. In this case, a Car owned these objects, so a Car is an owner class, and the tires, doors and engine are the owned classes.
+
+```python
+class Engine:
+    def __init__(self, capacity=0):
+        self.capacity = capacity
+
+    def printDetails(self):
+        print("Engine Details:", self.capacity)
+
+
+class Tires:
+    def __init__(self, tires=0):
+        self.tires = tires
+
+    def printDetails(self):
+        print("Number of tires:", self.tires)
+
+
+class Doors:
+    def __init__(self, doors=0):
+        self.doors = doors
+
+    def printDetails(self):
+        print("Number of doors:", self.doors)
+
+
+class Car:
+    def __init__(self, eng, tr, dr, color):
+        self.eObj = Engine(eng)
+        self.tObj = Tires(tr)
+        self.dObj = Doors(dr)
+        self.color = color
+
+    def printDetails(self):
+        self.eObj.printDetails()
+        self.tObj.printDetails()
+        self.dObj.printDetails()
+        print("Car color:", self.color)
+
+
+car = Car(1600, 4, 2, "Grey")
+car.printDetails()
+```
+
+We have created a Car class which contains the objects of Engine, Tires, and Doors classes. Car class is responsible for their lifetime, i.e, when a Car dies, so does tire, engine and doors too.

@@ -1258,3 +1258,430 @@ The base class can keep some data private so that the derived class cannot alter
 </p>
 
 
+## Polymorphism
+
+The word polymorphism is a combination of two greek words, **poly** meaning _many_ and **morph** meaning _forms_.
+
+In programming, _polymorphism_ refers to the same object exhibiting different forms and behaviours.
+
+For example, take the Shape Class. The exact shape you choose can be anything. It can be a rectangle, a circle, a polygon, or a diamond. While these are all shapes, their properties are different. This is called **polymorphism**.
+
+Assume there is a parent class named **Shape** and child classes: **Rectangle, Circle, Polygon** and **Diamond**.
+
+Suppose your application will need methods to calculate the area of each specific shape. You could throw in separate methods in each class (for instance, getSquareArea(), getCircleArea(), etc). But this makes it harder to remember each method's name.
+
+### Making things simpler with polymorphism
+
+It would be better if all specific area calculation methods could be called getArea(). This can be achieved in OOP using polymorphism. The base class declares a function without providing an implementation. Each derived class inherits the function declaration and can provide its own implementation.
+
+### What does polymorphism achieve?
+
+It cuts down the work of the developer. When the time comes to create more specific subclasses with certain unique attributes and behaviours, the developer can alter the code in the specific areas where the responses differ. All the other pieces of code can be left untouched.
+
+### Implementation
+
+#### Implementation with methods
+
+Consider two shapes that are defined as classes: Rectangle and Circle. These classes contain the getArea() method that calculates the area for the respective shape depending on the values of their properties.
+
+```python
+class Rectangle():
+
+    # initializer
+    def __init__(self, width=0, height=0):
+        self.width = width
+        self.height = height
+        self.sides = 4
+
+    # method to calculate Area
+    def getArea(self):
+        return (self.width * self.height)
+
+
+class Circle():
+    # initializer
+    def __init__(self, radius=0):
+        self.radius = radius
+        self.sides = 0
+
+    # method to calculate Area
+    def getArea(self):
+        return (self.radius * self.radius * 3.142)
+
+
+shapes = [Rectangle(6, 10), Circle(7)]
+print("Sides of a rectangle are", str(shapes[0].sides))
+print("Area of rectangle is:", str(shapes[0].getArea()))
+
+print("Sides of a circle are", str(shapes[1].sides))
+print("Area of circle is:", str(shapes[1].getArea()))
+```
+
+Output:
+
+```
+Sides of a rectangle are 4
+Area of rectangle is: 60
+Sides of a circle are 0
+Area of circle is: 153.958
+```
+
+#### Implementation using inheritance
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/179857878-9ca562ff-4d4f-401a-8c5c-66fb09190e58.png"/>
+</p>
+
+We will be implementing the parent class first, and then the child classes.
+
+##### Shape class
+
+```python
+class Shape:
+  def __init__(self):
+    self.sides = 0
+    
+  def getArea(self):
+    pass
+```
+
+##### Rectangle class
+
+```python
+# Rectangle IS A Shape with a specific width and height
+class Rectangle(Shape):
+  # initializer
+  def __init__(self, width, height):
+    self.width = width
+    self.height = height
+    self.sides = 4
+    
+  # method to calculate Area
+  def getArea(self):
+    return self.width * self.height
+```
+
+##### Circle class
+
+```python
+# Circle IS A Shape with a specific radius
+class Circle(Shape):
+  def __init__(self, radius):
+    self.radius = radius
+    self.sides = 0
+  
+  # method to calculate Area
+  def getArea(self):
+    return self.radius * self.radius * 3.142
+```
+
+**Note**: I don't see the point yet. The code would work if the getArea() method wasn't defined in Shape class.
+
+### Method overriding
+
+It is the process of redefining a parent class's method in a subclass. In the previous example, the Rectangle and Circle classes were overriding the getArea() method from the Shape class. In this case:
+
+- the method in the parent class is called the **overriden method**.
+- the methods in the child classes are called the **overriding methods**.
+
+#### Advantages and key features of method overriding
+
+- The derived classes can give their own specific implementations to inherited methods without modifying the parent class methods.
+- For any method, a child class can use the implementation in the parent class or make its own implementation.
+- Method overriding needes inheritance, and there should be at least one derived class to implement it.
+- The methods in the derived classes usually have a dissimilar implementation.
+
+### Operator overloading
+
+Operators in Python can be overloaded to operate in a certain user-defined way. Whenever an operator is used in Python, its corresponding method is invoked to perform its predefined function. For example, when the + operator is called, it invokes the special function **\_\_add\_\_** in Python, but this operator acts differently for different data types. For example, the + operator adds the numbers when it is used between two int data types and merges two strings when it is used between string data types.
+
+```python
+print(5 + 3)
+print("money" + "maker")
+```
+
+outputs
+
+```
+8
+moneymaker
+```
+
+#### Overloading operators for a user-defined class
+
+When a class is defined, its objects can interact with each other through the operators, but is is necessary to define the behaviour of these operators through operator overloading.
+
+We are going to implement a class that represents a complex number. It consists of a real part and an imaginary part.
+
+When we add a complex number, the real part is added to the real part, and the imaginary part is added to the imaginary part.
+
+Let's implement the complex number class and overload the + and - operators below:
+
+```python
+class Com:
+  def __init__(self, real=0, imag = 0):
+    self.real = real
+    self.imag = imag
+    
+  def __add__(self, other):
+    temp = Com(self.real + other.real, self.imag + other.imag)
+    return temp
+    
+  def __sub__(self, other):
+    temp = Com(self.real - other.real, self.imag - other.imag)
+    return temp
+    
+obj1 = Com(3, 7)
+obj2 = Com(2, 5)
+
+obj3 = obj1 + obj2
+obj4 = obj1 - obj2
+
+print("real of obj3:", obj3.real)
+print("imag of obj3:", obj3.imag)
+print("real of obj4:", obj4.real)
+print("imag of obj4:", obj4.imag)
+```
+
+Output:
+
+```
+real of obj3: 5
+imag of obj3: 12
+real of obj4: 1
+imag of obj4: 2
+```
+
+#### Special functions for some common operators
+
+Operators | Method
+:--: | :--:
+\+ | \_\_add\_\_ (self, other)
+\- | \_\_sub\_\_ (self, other)
+/ | \_\_truediv\_\_ (self, other)
+\* | \_\_mul\_\_ (self, other)
+< | \_\_lt\_\_ (self, other)
+\> | \_\_gt\_\_ (self, other)
+== | \_\_eq\_\_ (self, other)
+
+#### Implementing polymorphism using duck typing
+
+##### What is duck typing?
+
+We say that if an object _quacks_ like a duck, _swims_ like a duck, _eats_ like a duck or in short, _acts_ like a duck, that object is a duck.
+
+##### Dynamic typing
+
+Duck typing extends the concept of dynamic typing in Python. Dynamic typing means that we can change the type of an object later in the code.
+
+See the code below for a better understanding of dynamic typing in Python:
+
+```python
+x = 5  # type of x is an integer
+print(type(x))
+x = "Educative"  # type of x is now string
+print(type(x))
+```
+
+Output:
+
+```
+<class 'int'>
+<class 'str'>
+```
+
+##### Implementing duck typing
+
+```python
+class Dog:
+  def Speak(self):
+    print("Woof woof")
+    
+class Cat:
+  def Speak(self):
+    print("Meow meow")
+    
+class AnimalSound:
+  def Sound(self, animal):
+    animal.Speak()
+    
+sound = AnimalSound()
+dog = Dog()
+cat = Cat()
+
+sound.Sound(dog)
+sound.Sound(cat)
+
+```
+
+Output:
+
+```
+Woof woof
+Meow meow
+```
+
+- The type of **animal** is not defined in the definition of the method Sound.
+- Type of animal is determined when the method is called, so it does not matter which object type you are passing as a parameter in the Sound() method, what matters is that the Speak() method shoudl be defined in all the classes whose objects are passed in the Sound() method.
+- We can use any property or method of animal in the AnimalSound class as long as it is declared in that class.
+
+### Abstract base classes
+
+Abstract base classes (ABC) define a set of methods and properties that a class must implement in order to be considered a duck-type instance of that class.
+
+Let's look at an example to understand why we should use abstract base classes.
+
+```python
+class Shape: # Shape is a child class of ABC
+  def area(self):
+    pass
+    
+  def perimeter(self):
+    pass
+    
+class Square(Shape):
+  def __init__(self, length):
+    self.length = length
+    
+  def area(self):
+    return self.length * self.length
+    
+  def perimeter(self):
+    return 4 * self.length
+    
+shape = Shape()
+square = Square(4)
+
+```
+
+In the example above, you can see that an instance of Shape can be created even though an object from this class cannot stand on its own. Shape class should provide a blueprint for its child classes to implement methods in it. To prevent the user from making a Shape class object, we use abstract base classes.
+
+#### Syntax
+
+To define an abstract base class, we use the abc module. The abstract base class is inherited from the built-in ABC class. We have to use the decorator @abstractmethod above the method that we want to declare as an abstract method.
+
+```python
+from abc import ABC, abstractmethod
+
+class ParentClass(ABC):
+
+  @abstractmethod
+  def method(self)
+  
+```
+
+Example:
+
+```python
+from abc import ABC, abstractmethod
+
+
+class Shape(ABC):  # Shape is a child class of ABC
+    @abstractmethod
+    def area(self):
+        pass
+
+    @abstractmethod
+    def perimeter(self):
+        pass
+
+
+class Square(Shape):
+    def __init__(self, length):
+        self.length = length
+
+
+shape = Shape()
+# this code will not compile since Shape has abstract methods without
+# method definitions in it
+```
+
+```python
+from abc import ABC, abstractmethod
+
+
+class Shape(ABC):  # Shape is a child class of ABC
+    @abstractmethod
+    def area(self):
+        pass
+
+    @abstractmethod
+    def perimeter(self):
+        pass
+
+
+class Square(Shape):
+    def __init__(self, length):
+        self.length = length
+
+
+square = Square(4)
+# this will code will not compile since abstarct methods have not been
+# defined in the child class, Square
+```
+
+As you can see above, the code does not compile since we have not defined the abstract methods, area and perimeter, inside the parent class, Shape, or the child class, Square. Let’s do it and see what happens:
+
+```python
+from abc import ABC, abstractmethod
+
+
+class Shape(ABC):  # Shape is a child class of ABC
+    @abstractmethod
+    def area(self):
+        pass
+
+    @abstractmethod
+    def perimeter(self):
+        pass
+
+
+class Square(Shape):
+    def __init__(self, length):
+        self.length = length
+
+    def area(self):
+        return (self.length * self.length)
+
+    def perimeter(self):
+        return (4 * self.length)
+
+
+shape = Shape()
+# this code will not compile since Shape has abstract methods without
+# method definitions in it
+```
+
+```python
+from abc import ABC, abstractmethod
+
+
+class Shape(ABC):  # Shape is a child class of ABC
+    @abstractmethod
+    def area(self):
+        pass
+
+    @abstractmethod
+    def perimeter(self):
+        pass
+
+
+class Square(Shape):
+    def __init__(self, length):
+        self.length = length
+
+    def area(self):
+        return (self.length * self.length)
+
+    def perimeter(self):
+        return (4 * self.length)
+
+
+square = Square(4)
+# this code will not generate an error since abastract methods have been
+# defined in the child class, Square
+```
+
+- Note: Methods with @abstractmethod decorators must be defined in the child class.
+
+By using abstract base classes, we can control classes whose objects can or cannot be created.

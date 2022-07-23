@@ -503,3 +503,331 @@ Output:
 237734
 44678
 ```
+
+#### Dictionary operations
+
+##### Adding/Updating entries
+
+We can add entries in a dictionary by simply assigning a value to a key. Python automatically creates the entry. If a value already exists at this key, it will be updated:
+
+```python
+phone_book = {"Batman": 468426,
+              "Cersei": 237734,
+              "Ghostbusters": 44678}
+print(phone_book)
+
+phone_book["Godzilla"] = 46394  # New entry
+print(phone_book)
+
+phone_book["Godzilla"] = 9000  # Updating entry
+print(phone_book)
+```
+
+Output:
+
+```
+{'Ghostbusters': 44678, 'Batman': 468426, 'Cersei': 237734}
+{'Ghostbusters': 44678, 'Batman': 468426, 'Godzilla': 46394, 'Cersei': 237734}
+{'Ghostbusters': 44678, 'Batman': 468426, 'Godzilla': 9000, 'Cersei': 237734}
+```
+
+##### Removing entries
+
+To delete an entry, we can use the **del** keyword.
+
+```python
+phone_book = {"Batman": 468426,
+              "Cersei": 237734,
+              "Ghostbusters": 44678}
+print(phone_book)
+
+del phone_book["Batman"]
+print(phone_book)
+```
+
+If we want to use the deleted value, the pop() or popitem() methods would work better:
+
+```python
+phone_book = {"Batman": 468426,
+              "Cersei": 237734,
+              "Ghostbusters": 44678}
+print(phone_book)
+
+cersei = phone_book.pop("Cersei")
+print(phone_book)
+print(cersei)
+
+# Removes and returns the last inserted pair, as a tuple
+# In Python versions before 3.7, popitem() removes and returns the random item
+lastAdded = phone_book.popitem()
+print(lastAdded)
+```
+
+Output:
+
+```
+{'Batman': 468426, 'Cersei': 237734, 'Ghostbusters': 44678}
+{'Batman': 468426, 'Ghostbusters': 44678}
+237734
+('Ghostbusters', 44678)
+```
+
+##### Length of a dictionary
+
+Similar to lists and tuples, we can calculate the length of a dictionary using **len()**:
+
+```python
+phone_book = {"Batman": 468426,
+              "Cersei": 237734,
+              "Ghostbusters": 44678}
+print(len(phone_book))
+```
+
+##### Checking key existence
+
+The in keyword can be used to check if a key exists in a dictionary.
+
+##### Copying contents
+
+To copy the contents of one dictionary to another, we can use the **update()** operation.
+
+```python
+phone_book = {"Batman": 468426,
+              "Cersei": 237734,
+              "Ghostbusters": 44678}
+
+second_phone_book = {"Catwoman": 67423, "Jaime": 237734, "Godzilla": 37623}
+
+# Add secondphone_book to phone_book
+phone_book.update(second_phone_book)
+print(phone_book)
+```
+
+##### Dictionary comprehension
+
+It works very similar to list comprehensions. However, to iterate the dictionary, we'll use the **dict.items()** operation which turns a dictionary into a list of **(key, value)** tuples. Here's a simple example where the keys of the original dictionary are squared and '!' is appended to each string value:
+
+```python
+houses = {1: "Gryffindor", 2: "Slytherin", 3: "Hufflepuff", 4: "Ravenclaw"}
+new_houses = {n**2: house + "!" for (n, house) in houses.items()}
+print(houses)
+print(new_houses)
+```
+
+Output:
+
+```
+{1: 'Gryffindor', 2: 'Slytherin', 3: 'Hufflepuff', 4: 'Ravenclaw'}
+{16: 'Ravenclaw!', 1: 'Gryffindor!', 4: 'Slytherin!', 9: 'Hufflepuff!'}
+```
+
+### Sets
+
+A set is an unordered collection of data items.
+
+The data is not indexed, so we can't access elements using indices or get(). This is probably the simplest data structure in Python. We can think of it as a bag containing random items.
+
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/180581245-f7adef2e-09de-4275-90f0-460cdf5a2385.png"/>
+</p>
+
+Mutable data structures like lists or dictionaries can't be added to a set. However, adding a tuple is perfectly fine. A set is perfect when we simply need to keep track of the existence of items.
+
+It doesn't allow duplicates, which means that we can convert another data structure to a set to remove any duplicates.
+
+#### Creating a set
+
+The contents of a set are encapsulated in curly brackets, {}. Like all data structures, the length of a set can be calculated using len().
+
+#### The set() constructor
+
+It is an alternate way of creating sets.
+
+```python
+empty_set = set()
+print(empty_set)
+
+random_set = set({"Educative", 1408, 3.142, (True, False)})
+print(random_set)
+```
+
+Output:
+
+```
+set()
+{1408, (True, False), 3.142, 'Educative'}
+```
+
+#### Adding elements
+
+To add a single item, we can use the **add()** method. To add multiple items, we'd have to use **update()**.
+
+The input for update() must be another set, list, tuple, or string.
+
+```python
+empty_set = set()
+print(empty_set)
+
+empty_set.add("hi")
+print(empty_set)
+
+empty_set.update([2, 3, 4, 5, 6], "hi")
+print(empty_set)
+```
+
+Output:
+
+```
+set()
+{'hi'}
+{2, 3, 4, 5, 6, 'hi', 'i', 'h'}
+```
+
+#### Deleting elements
+
+The **discard()** or **remove()** operations can be used to delete a particular item from a set.
+
+```python
+random_set = set({"Educative", 1408, 3.142, (True, False)})
+print(random_set)
+
+random_set.discard(1408)
+print(random_set)
+
+random_set.remove((True, False))
+print(random_set)
+```
+
+The **remove()** method generates an error if the item is not found, unlike the **discard()** method.
+
+#### Iterating a set
+
+The **for** loop can be used on unordered data structures like sets. However, we wouldn’t know the order in which the iterator moves meaning elements will be picked randomly.
+
+In the example below, we’ll take the elements of a set and append them to a list if they are odd:
+
+```python
+odd_list = [1, 3, 5, 7]
+unordered_set = {9, 10, 11, 12, 13, 14, 15, 16, 17}
+
+print(unordered_set)
+
+for num in unordered_set:
+    if(not num % 2 == 0):
+        odd_list.append(num)
+
+print(odd_list)
+```
+
+Output:
+
+```
+{9, 10, 11, 12, 13, 14, 15, 16, 17}
+[1, 3, 5, 7, 9, 11, 13, 15, 17]
+```
+
+#### Set theory operations
+
+- Union
+- Intersection
+- Difference
+
+##### Union
+
+A union of two sets is the collection of all unique elements from both sets.
+
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/180581675-facb74a2-505f-4c48-979d-653b9ceb9b4b.png"/>
+</p>
+
+In Python, union can be performed using either the pipe operator \|, or the **union()** method.
+
+```python
+set_A = {1, 2, 3, 4}
+set_B = {'a', 'b', 'c', 'd'}
+
+print(set_A | set_B)
+print(set_A.union(set_B))
+print(set_B.union(set_A))
+```
+
+Output:
+
+```
+{1, 2, 3, 4, 'a', 'd', 'c', 'b'}
+{1, 2, 3, 4, 'a', 'd', 'c', 'b'}
+{'a', 1, 2, 3, 4, 'd', 'c', 'b'}
+```
+
+##### Intersection
+
+The intersection of two sets is the collection of unique elements which are common between them.
+
+In Python, intersection can be performed using either the \& operator or the **intersection()** method.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/180581806-b5d4ceed-3516-46fa-8fc8-0eeec540e245.png"/>
+</p>
+
+```python
+set_A = {1, 2, 3, 4}
+set_B = {2, 8, 4, 16}
+
+print(set_A & set_B)
+print(set_A.intersection(set_B))
+print(set_B.intersection(set_A))
+```
+
+Output:
+
+```
+{2, 4}
+{2, 4}
+{2, 4}
+```
+
+##### Difference
+
+The difference between two sets is the collection of all unique elements present in the first set but not in the second.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/180581868-ec67c958-dff5-47d9-bb05-40f60974bef7.png"/>
+</p>
+
+          
+In Python, the difference between two sets can be found using either the - operator or the **difference()** method.
+
+```python
+set_A = {1, 2, 3, 4}
+set_B = {2, 8, 4, 16}
+
+
+print(set_A - set_B)
+print(set_A.difference(set_B))
+
+print(set_B - set_A)
+print(set_B.difference(set_A))
+```
+
+Output:
+
+```
+{1, 3}
+{1, 3}
+{16, 8}
+{16, 8}
+```
+
+
+
+
+
+
+
+
+
+
+
+

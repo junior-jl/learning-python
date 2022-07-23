@@ -1167,3 +1167,50 @@ def is_match(p1, p2):
         return False
         
 ```        
+
+#### Reverse string
+
+In Python, you can reverse a string very easily. For example,
+
+```python
+input_str = "Educative"
+print(input_str[::-1])
+```
+
+##### Implementation with stack
+
+```python
+from stack import Stack
+def reverse_string(stack, input_str):
+  for i in range(len(input_str)):
+    stack.push(input_str[i])
+  rev_str = ""
+  while not stack.is_empty():
+    rev_str += stack.pop()
+
+  return rev_str
+
+stack = Stack()
+input_str = "!evitacudE ot emocleW"
+print(reverse_string(stack, input_str))
+```
+
+Output: `Welcome to Educative!`
+
+I made a little modification in the code and it worked as well.
+
+```python
+from stack import Stack
+def reverse_string(input_str):
+  stack = Stack()
+  for i in range(len(input_str)):
+    stack.push(input_str[i])
+  rev_str = ""
+  while not stack.is_empty():
+    rev_str += stack.pop()
+
+  return rev_str
+
+input_str = "!evitacudE ot emocleW"
+print(reverse_string(input_str))
+```

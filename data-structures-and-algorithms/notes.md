@@ -1284,3 +1284,250 @@ class LinkedList:
     
 ```
 
+##### Insertion
+
+We'll implement the class methods to insert elements in a linked list:
+
+1. append
+2. prepend
+3. insert_after_node
+
+##### Append
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/180624847-375ad82a-6337-40b7-9fef-0ab6bc5b5963.png"/>
+</p>
+
+The append method will insert an element at the end of the linked list.
+
+```python
+class Node:
+  def __init__(self, data):
+    self.data = data
+    self.next = None
+    
+class LinkedList:
+  def __init__(self):
+    self.head = None
+    
+  def append(self, data):
+    new_noed = Node(data)
+    
+```
+
+###### Empty linked list case
+
+For the append method, we also need to cater for the case if the linked list is empty.
+
+```python
+class Node:
+  def __init__(self, data):
+    self.data = data
+    self.next = None
+
+class LinkedList:
+  def __init__(self):
+    self.head = None
+
+  def append(self, data):
+    new_node = Node(data)
+    if self.head is None:
+      self.head = new_node
+      return
+     
+```     
+
+###### Non-empty linked list case
+
+We have new_node that we create, and we want to append it to the linked list. We can start from the head pointer and then move through each of the nodes in the linked list unitl we get to the end, i.e., None. Once we arrive at the location that we want to insert the new_node at, we insert as shown below:
+
+```python
+class Node:
+  def __init__(self, data):
+    self.data = data
+    self.next = None
+
+class LinkedList:
+  def __init__(self):
+    self.head = None
+
+  def append(self, data):
+    new_node = Node(data)
+    if self.head is None:
+      self.head = new_node
+      return
+    last_node = self.head
+    while last_node.next:
+      last_node = last_node.next
+    last_node.next = new_node
+    
+```
+
+##### print_list()
+
+It is a class method, so it will take self as an argument and print out the entries of a linked list.
+
+```python
+class Node:
+  def __init__(self, data):
+    self.data = data
+    self.next = None
+
+class LinkedList:
+  def __init__(self):
+    self.head = None
+  
+  def print_list(self):
+    cur_node = self.head
+    while cur_node:
+      print(cur_node.data)
+      cur_node = cur_node.next
+
+  def append(self, data):
+    new_node = Node(data)
+    if self.head is None:
+      self.head = new_node
+      return
+    last_node = self.head
+    while last_node.next:
+      last_node = last_node.next
+    last_node.next = new_node
+```
+
+##### Prepend
+
+The prepend method will insert an element at the beginning of the linked list.
+
+```python
+class Node:
+  def __init__(self, data):
+    self.data = data
+    self.next = None
+
+class LinkedList:
+  def __init__(self):
+    self.head = None
+  
+  def print_list(self):
+    cur_node = self.head
+    while cur_node:
+      print(cur_node.data)
+      cur_node = cur_node.next
+
+  def append(self, data):
+    new_node = Node(data)
+    if self.head is None:
+      self.head = new_node
+      return
+    last_node = self.head
+    while last_node.next:
+      last_node = last_node.next
+    last_node.next = new_node
+
+  def prepend(self, data):
+    new_node = Node(data)
+
+    new_node.next = self.head
+    self.head = new_node
+```
+
+##### Insert after node
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/180625067-dfe1fcdb-b32e-433b-8d93-cbd6c6388d11.png"/>
+</p>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/180625073-f7a55f99-f26d-4bba-baed-30d6b90cd4d8.png"/>
+</p>
+
+```python
+class Node:
+  def __init__(self, data):
+    self.data = data
+    self.next = None
+
+class LinkedList:
+  def __init__(self):
+    self.head = None
+  
+  def print_list(self):
+    cur_node = self.head
+    while cur_node:
+      print(cur_node.data)
+      cur_node = cur_node.next
+
+  def append(self, data):
+    new_node = Node(data)
+    if self.head is None:
+      self.head = new_node
+      return
+    last_node = self.head
+    while last_node.next:
+      last_node = last_node.next
+    last_node.next = new_node
+
+  def prepend(self, data):
+    new_node = Node(data)
+
+    new_node.next = self.head
+    self.head = new_node
+  
+  def insert_after_node(self, prev_node, data):
+    if not prev_node:
+      print("Previous node does not exist.")
+      return
+    new_node = Node(data)
+
+    new_node.next = prev_node.next
+    prev_node.next = new_node
+```
+
+##### Deletion by value
+
+To solve this problem, we need to handle two cases:
+
+1. Node to be deleted is head
+2. Node to be deleted is not head
+
+###### Case of deleting head
+
+```python
+def delete_node(self, key):
+  
+  cur_node = self.head
+
+  if cur_node and cur_node.data == key:
+    self.head = cur_node.next 
+    cur_node = None
+    return
+```
+
+###### Case of deleting node other than the head
+
+For example, to delete Node B:
+
+1. previous node of Node B will point to the next node of Node B
+2. delete node B
+
+```py
+def delete_node(self, key):
+  
+  cur_node = self.head
+
+  if cur_node and cur_node.data == key:
+    self.head = cur_node.next 
+    cur_node = None
+    return
+  
+  prev = None
+  while cur_node and cur_node.data != key:
+    prev = cur_node
+    cur_node = cur_node.next 
+
+  if cur_node is None:
+    return 
+  
+  prev.next = cur_node.next
+  cur_node = None
+```

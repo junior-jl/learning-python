@@ -1531,3 +1531,62 @@ def delete_node(self, key):
   prev.next = cur_node.next
   cur_node = None
 ```
+
+##### Deleting by position
+
+We need to consider two cases:
+
+1. Node to be deleted is at position 0
+2. Node to be deleted is not at position 0
+
+The overall logic will stay the same as in the previous lesson except that we'll change the code a bit to cater to position rather than a key.
+
+```python
+def delete_node_at_pos(self, pos):
+  if self.head:
+    cur_node = self.head
+    if pos == 0:
+      self.head = cur_node.next
+      cur_node = None
+      return
+
+    prev = None
+    count = 0
+    while cur_node and count != pos:
+        prev = cur_node 
+        cur_node = cur_node.next
+        count += 1
+
+    if cur_node is None:
+        return 
+
+    prev.next = cur_node.next
+    cur_node = None
+    
+```
+
+##### Length
+
+###### Iterative implementation
+
+```py
+def len_iterative(self):
+  count = 0
+  cur_node = self.head
+  while cur_node:
+    count += 1
+    cur_node = cur_node.next
+  return count
+  
+```
+
+###### Recursive implementation
+
+```py
+def len_recursive(self, node):
+  if node is None:
+    return 0
+  return 1 + self.len_recursive(node.next)
+```
+
+If we want to calculate the length of the whole linked list, we have to pass the start of the linked list as the node.

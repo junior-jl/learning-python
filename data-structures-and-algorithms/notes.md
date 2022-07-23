@@ -950,5 +950,169 @@ Output:
 {1: 'Anakin', 2: 'Darth Vader', 3: 1000}
 ```
 
+## Stack
+
+The data structure stack is very similar to a physical stack that you'd most likely be familiar with. The stack data structure allows us to place any programming artifact, variable or object on it.
+
+### Stack operations
+
+#### Push
+
+The operation to insert elements in a stack is called **push**. When we push the book on a stack, we put the book on the previous _top_ element, which means that the new book becomes the _top_ element.
+
+#### Pop
+
+Popping is when we take the top book of the stack and put it down. This implies that when we remove an element from the stack, the stack follows the _First-in, Last out_ property. This means that the top element is removed when we perform the pop operation.
+
+#### Peek
+
+Another thing that we can do is view the top element of the stack so we can ask the data structure: "What's the top element?" and it can give that to us using the _peek_ operation.
+
+Now we are going to create a stack class, and the constructor of the class is going to initialize a Python list.
+
+```python
+"""
+Stack Data Structure.
+"""
+class Stack():
+  def __init__(self):
+    self.items = []
+```
+
+We are defining a class variable **items**, and assigning it to an empty list. **self.items** is created when we create a stack object so now let's create the **push** method.
+
+```python
+"""
+Stack Data Structure
+"""
+class Stack():
+  def __init__(self):
+    self.items = []
+  
+  def push(self, item):
+    self.items.append(item)
+   
+```
+
+Implementing the pop method:
+
+```python
+"""
+Stack Data Structure.
+"""
+class Stack():
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)				
+
+    def pop(self):
+        return self.items.pop()
+```
+
+We also create a method called **get_stack()** that will return the **items** list.
+
+```python
+"""
+Stack Data Structure.
+"""
+class Stack():
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)				
+
+    def pop(self):
+        return self.items.pop()
+
+    def get_stack(self):
+        return self.items
+```
+
+Another helpful method we could have is a method called **is_empty**. It will return whether or not the stack is empty.
+
+```python
+class Stack():
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)				
+
+    def pop(self):
+        return self.items.pop()
+    
+    def is_empty(self):
+        return self.items == []
+        
+    def get_stack(self):
+        return self.items
+        
+```
+
+To finish, we have the peek operation which tells us the topmost element of the stack.
+
+```python
+"""
+Stack Data Structure.
+"""
+class Stack():
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)				
+
+    def pop(self):
+        return self.items.pop()
+    
+    def is_empty(self):
+        return self.items == []
+    
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1]
+        
+    def get_stack(self):
+        return self.items
+       
+```
+
+#### Determine if brackets are balanced
+
+A balanced set of brackets is one where the number and type of opening and closing brackets match and that is also properly nested within the string of brackets.
+
+##### Examples of balanced brackets
+
+- { }
+- { } { }
+- ( ( { [ ] } ) )
+
+##### Examples of unbalanced brackets
+
+- ( ( )
+- { { { ) } ]
+- `[ ] [ ]` ] ]
+
+##### Algorithm
 
 
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/180617811-e33d4334-247c-4f9d-9a50-09b8cd13cce7.png"/>
+</p>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/180617819-52bcda5f-b882-4c7f-9738-36a888be90dd.png"/>
+</p>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/180617824-6413878e-f84d-4d2e-8bbe-3e811839fcf8.png"/>
+</p>
+
+- We iterate through the characters of the string.
+- If we get an opening bracket, push it onto the stack.
+- If we encounter a closing bracket, pop off an element from the stack and match it with the closing bracket. If it is an opening bracket and of the same type as the closing bracket, we conclude it is a successful match and move on. If it’s not, we will conclude that the set of brackets is not balanced.
+- The stack will be empty at the end of iteration for a balanced example of brackets while we’ll be left with some elements in the stack for an unbalanced example.

@@ -1214,3 +1214,73 @@ def reverse_string(input_str):
 input_str = "!evitacudE ot emocleW"
 print(reverse_string(input_str))
 ```
+
+### Singly linked lists
+
+We will go over the following different types of linked lists and implement them in Python:
+
+1. Singly linked lists
+2. Doubly linked lists
+3. Circular linked lists
+
+Below is a simple depiction of a singly linked list:
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/180621233-8912fb42-8d41-4819-8339-68a199fc434c.png"/>
+</p>
+
+#### Structure
+
+Every linked list consists of nodes. Every node has two components:
+
+1. Data
+2. Next
+
+- The _data_ component allows a node in the linked list to store an element of data that can be of type string, character, number or any other type of object.
+- The _next_ component in every node is a pointer that points from one node to another.
+- The start of the linked list is referred to as the **head**. It is a pointer that points to the beginning of the linked list, so if we want to traverse the linked list to obtain or access an element of the linked list, we'll start from head and move along.
+- The last component of a singly linked list is a notion of null. This null idea terminates the linked list. In Python, we call this **None**. The last node in a singly linked list points to a null object, and that tells you that it's the end of the linked list.
+
+#### Arrays vs. linked lists
+
+|                                                   | Arrays | Linked lists |
+|:-------------------------------------------------:|:------:|:------------:|
+| Insertion/deletion at the beginning given a value |  O(n)  |     O(1)     |
+|                   Access element                  |  O(1)  |     O(n)     |
+|                 Contiguous memory                 |   Yes  |      No      |
+
+##### Insertion/deletion
+
+The insertion/deletion operation is in O(n) operations for insertion/deletion of value at the beginning of the array. Now think if we are given an array and a value to insert at the beginning of an array. For insertion, we have to shift all the elements in the array to the right. Due to the shifting, the time complexity is O(n). The same is valid for deletion. 
+
+Inserting a node at the head of a linked list given the head node is a constant-time operation as we need to change the orientation of a few pointers. If we are given the exact pointer after which we have to insert another node, it will be a constant-time operation.
+
+##### Accessing elements
+
+Accessing any element given an index in arrays is better than accessing nth elements in linked lists. It is a constant time operation to access elements in arrays. This is because arrays are contiguous. 
+
+In a linked list, if we want to access an element, we need to start from the head pointer and traverse the entire linked list before we can get to it.
+
+##### Contiguous memory
+
+Arrays are contiguous in memory which allows the access time to be constant, whereas, in linked lists, you do not have the luxury of contiguous memory.
+
+#### Implementation
+
+Now let's go ahead and create our classes in Python:
+
+- Node class
+- LinkedList class
+
+```python
+class Node:
+  def __init__(self, data):
+    self.data = data
+    self.next = None
+    
+class LinkedList:
+  def __init__(self):
+    self.head = None
+    
+```
+

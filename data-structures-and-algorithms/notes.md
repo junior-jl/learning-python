@@ -1590,3 +1590,94 @@ def len_recursive(self, node):
 ```
 
 If we want to calculate the length of the whole linked list, we have to pass the start of the linked list as the node.
+
+#### Node swap
+
+One way to solve this is by iterating the linked list and keeping track of certain pieces of information that are going to be helpful.
+
+We can start from the first node, i.e., the head node of the linked list and keep track of both the previous and the current node.
+
+There are two cases that we'll have to cater for:
+
+1. Node 1 and Node 2 are not head nodes
+2. Either node 1 or node 2 is a head node.
+
+```python
+def swap_nodes(self, key_1, key_2):
+
+  if key_1 == key_2:
+    return 
+
+  prev_1 = None 
+  curr_1 = self.head 
+  while curr_1 and curr_1.data != key_1:
+    prev_1 = curr_1 
+    curr_1 = curr_1.next
+
+  prev_2 = None 
+  curr_2 = self.head 
+  while curr_2 and curr_2.data != key_2:
+    prev_2 = curr_2 
+    curr_2 = curr_2.next
+
+  if not curr_1 or not curr_2:
+    return 
+
+  if prev_1:
+    prev_1.next = curr_2
+  else:
+    self.head = curr_2
+
+  if prev_2:
+      prev_2.next = curr_1
+  else:
+      self.head = curr_1
+
+  curr_1.next, curr_2.next = curr_2.next, curr_1.next
+```
+
+The last line swaps the **next** of **curr_1** and the **next** of **curr_2** using Python shorthand.
+
+#### Reverse
+
+##### Iterative implementation
+
+The key idea is reversing the orientation of the arrows. 
+
+```py
+def reverse_iterative(self):
+  prev = None
+  cur = self.head
+  while cur:
+    nxt = cur.next
+    cur.next = prev
+    prev = cur
+    cur = nxt
+  self.head = prev
+  
+```  
+
+##### Recursive implementation
+
+```py
+def reverse_recursive(self):
+
+  def _reverse_recursive(cur, prev):
+    if not cur:
+      return prev
+
+    nxt = cur.next
+    cur.next = prev
+    prev = cur 
+    cur = nxt 
+    return _reverse_recursive(cur, prev)
+
+  self.head = _reverse_recursive(cur=self.head, prev=None)
+```
+
+The crux of any recursive solution is as follows:
+
+- We implement the base case.
+- We agree to solve the simplest problem, which in this case is to reverse just one pair of nodes.
+- We defer the remaining problem to a recursive call, which is the reversal of the rest of the linked list.
+

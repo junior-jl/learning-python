@@ -1681,3 +1681,45 @@ The crux of any recursive solution is as follows:
 - We agree to solve the simplest problem, which in this case is to reverse just one pair of nodes.
 - We defer the remaining problem to a recursive call, which is the reversal of the rest of the linked list.
 
+#### Merge two sorted linked lists
+
+To solve this problem, we'll use two pointers (p and q) which will each initially point to the head node of each linked list. There will be another pointer, s, that will point to the smaller value of data of the nodes that p and q are pointing to. Once s points to the smaller value of the data of nodes that p and q point to, p or q will move on to the next node in their respective linked list. If s and p point to the same node, p moves forward; otherwise q moves forward. The final merged linked list will be made from the nodes that s keeps pointing to.
+
+```py
+def merge_sorted(self, llist):
+
+  p = self.head 
+  q = llist.head
+  s = None
+
+  if not p:
+      return q
+  if not q:
+      return p
+
+  if p and q:
+      if p.data <= q.data:
+          s = p 
+          p = s.next
+      else:
+          s = q
+          q = s.next
+      new_head = s 
+  while p and q:
+      if p.data <= q.data:
+          s.next = p 
+          s = p 
+          p = s.next
+      else:
+          s.next = q
+          s = q
+          q = s.next
+  if not p:
+      s.next = q 
+  if not q:
+      s.next = p
+
+  self.head = new_head     
+  return self.head
+```
+

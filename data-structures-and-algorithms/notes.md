@@ -1723,3 +1723,154 @@ def merge_sorted(self, llist):
   return self.head
 ```
 
+#### Remove duplicates
+
+```py
+def remove_duplicates(self):
+  cur = self.head
+  prev = None
+  dup_values = dict()
+
+  while cur:
+    if cur.data in dup_values:
+      # Remove node:
+      prev.next = cur.next
+      cur = None
+    else:
+      # Have not encountered element before.
+      dup_values[cur.data] = 1
+      prev = cur
+    cur = prev.next
+    
+```
+
+#### Nth-to-last node
+
+If N equals 2, we want to get the second to last node from the linked list.
+
+##### Solution 1
+
+1. Calculate the length of the linked list
+2. Count down from the total length until n is reached.
+
+```py
+def print_nth_from_last(self, n):
+  total_len = self.len_iterative()
+  
+  cur = self.head 
+  while cur:
+    if total_len == n:
+      print(cur.data)
+      return cur.data
+    total_len -= 1
+    cur = cur.next
+  if cur is None:
+    return  
+```
+
+##### Solution 2
+
+There will be a total of two pointers, p and q:
+
+- p will point to the head node.
+- q will point n nodes beyond head node.
+- we'll move these pointers along with the linked list one node at a time. When q reach None, we check where p is pointing, as that is the node we want.
+
+```python
+def print_nth_from_last(self, n):
+    p = self.head
+    q = self.head
+
+    if n > 0:
+        count = 0
+        while q:
+            count += 1
+            if(count>=n):
+                break
+            q = q.next
+            
+        if not q:
+            print(str(n) + " is greater than the number of nodes in list.")
+            return
+
+        while p and q.next:
+            p = p.next
+            q = q.next
+        return p.data
+    else:
+        return None
+```
+
+I implemented a third solution that might take more time, but it works:
+
+```py
+self.reverse_recursive()
+i = self.head
+c = 1
+while c is not n:
+  i = i.next
+  c += 1
+if i:
+  self.reverse_recursive()
+  return i.data
+else:
+  self.reverse_recursive()
+  return None
+```
+
+#### Count occurrences
+
+##### Iterative implementation
+
+```py
+def count_occurences_iterative(self, data):
+  count = 0
+  cur = self.head
+  while cur:
+      if cur.data == data:
+          count += 1
+      cur = cur.next
+  return count 
+```
+
+##### Recursive implementation
+
+```py
+def count_occurences_recursive(self, node, data):
+  if not node:
+      return 0 
+  if node.data == data:
+      return 1 + self.count_occurences_recursive(node.next, data)
+  else:
+      return self.count_occurences_recursive(node.next, data)
+      
+```      
+
+#### Rotate
+
+To solve this problem, we make use of two pointers p and q. p points to the pivot node while q points to the end of the linked list. Once the pointers are rightly positioned, we update the last element, and instead of making it point to None, we make it point to the head of the linked list. After this step we achive a circular linked list. Now we have to fix the end of the linked list. THerefore, we update the head of the linked list, which will be the next element after the pivot node, as the pivot node has to be the last node. Finally, we sett **p.next** to **None**, which breaks up the circular linked list and makes **p** the last element of our rotated linked list.
+
+```py
+def rotate(self, k):
+  if self.head and self.head.next:
+    p = self.head 
+    q = self.head 
+    prev = None
+    count = 0
+    
+    while p and count < k:
+        prev = p
+        p = p.next 
+        q = q.next 
+        count += 1
+    p = prev
+    while q:
+        prev = q 
+        q = q.next 
+    q = prev 
+
+    q.next = self.head 
+    self.head = p.next 
+    p.next = None
+    
+```    

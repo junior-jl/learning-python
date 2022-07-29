@@ -1942,3 +1942,202 @@ def is_palindrome(self):
   else:
     return True
 ```
+
+### Circular linked lists
+
+#### Introduction and Insertion
+
+Circular linked list: same principle as the singly linked list, except for the fact that the next of the tail node is the head node instead of null.
+
+<p align="center">
+  <img src = "https://user-images.githubusercontent.com/69206952/181852445-f0a3ab9f-189c-4846-acd0-9cd3cd63cf21.png"/>
+</p>
+
+```py
+class Node:
+    def __init__(self, data):
+      self.data = data
+      self.next = None
+
+
+class CircularLinkedList:
+    def __init__(self):
+      self.head = None 
+
+    def prepend(self, data):
+      pass
+
+    def append(self, data):
+      pass
+
+    def print_list(self):
+      pass
+      
+```      
+
+##### append
+
+Appending to a circular linked list implies inserting the new node after the node that was previously pointing to the head of the linked list.
+
+```py
+def append(self, data):
+  if not self.head:
+      self.head = Node(data)
+      self.head.next = self.head
+  else:
+      new_node = Node(data)
+      cur = self.head
+      while cur.next != self.head:
+          cur = cur.next
+      cur.next = new_node
+      new_node.next = self.head
+      
+```
+
+##### print_list
+
+```py
+def print_list(self):
+  cur = self.head 
+
+  while cur:
+      print(cur.data)
+      cur = cur.next
+      if cur == self.head:
+          break
+          
+```
+
+##### prepend
+
+```py
+def prepend(self, data):
+  new_node = Node(data)
+  cur = self.head 
+  new_node.next = self.head
+
+  if not self.head:
+      new_node.next = new_node
+  else:
+      while cur.next != self.head:
+          cur = cur.next
+      cur.next = new_node
+  self.head = new_node
+  
+```
+
+#### Remove node
+
+It is assumed that there are no duplicates. This is because the code that we will write will only be responsible for removing the first occurrence of the key provided to be deleted.
+
+```py
+def remove(self, key):
+  if self.head:
+    if self.head.data == key:
+      cur = self.head 
+      while cur.next != self.head:
+        cur = cur.next 
+      if self.head == self.head.next:
+        self.head = None
+      else:
+        cur.next = self.head.next
+        self.head = self.head.next
+    else:
+      cur = self.head 
+      prev = None 
+      while cur.next != self.head:
+        prev = cur 
+        cur = cur.next
+        if cur.data == key:
+          prev.next = cur.next 
+          cur = cur.next
+```
+
+#### Split linked list into two halves
+
+<p align="center">
+  <img src = "https://user-images.githubusercontent.com/69206952/181853322-32658d96-8013-4dfc-bda0-375b9e73948d.png"/>
+</p>
+
+To approach this problem, we'll find the length of the circular linked list and calculate the midpoint. Once that is done, we'll split the linked list around the midpoint.
+
+##### \_\_len\_\_()
+
+```py
+def __len__(self):
+  cur = self.head
+  count = 0
+  while cur:
+    count += 1
+    cur = cur.next
+    if cur == self.head:
+      break
+  return count
+  
+```
+
+The \_\_len\_\_ method has been defined with underscores before and after the len keyword so that it overrides the len method to operate on a circular linked list.
+
+##### Implementation
+
+```py
+def split_list(self):
+    size = len(self)    
+
+    if size == 0:
+        return None
+    if size == 1:
+        return self.head
+
+    mid = size//2
+    count = 0
+
+    prev = None
+    cur = self.head
+
+    while cur and count < mid:
+        count += 1
+        prev = cur
+        cur = cur.next
+    prev.next = self.head 
+
+    split_cllist = CircularLinkedList()
+    while cur.next != self.head:
+        split_cllist.append(cur.data)
+        cur = cur.next
+    split_cllist.append(cur.data)
+
+    self.print_list()
+    print("\n")
+    split_cllist.print_list()
+    
+```    
+
+#### Josephus problem
+
+Josephus problem is related to this concept. In this problem, people are standing in one circle waiting to be executed. Following points list the specifications of Josephus problem:
+
+- The counting out begins at a specified point in a circle and continues around the circle in a fixed direction.
+
+- In each step, a certain number of people are skipped and the next person is executed.
+
+For example, if we have n people, and k-1 people are skipped every time, it means that the kth person is executed. Here, k is the step-size.
+
+To solve this problem, we will tweak the remove method from one of the previous lessons so that we can remove nodes by passing the node itself instead of a key. To avoid confusion, we’ll use the code from remove and paste it in a new method called remove_node with some minor modifications.
+
+```py
+def josephus_circle(self, step):
+  cur = self.head 
+
+  length = len(self)
+  while length > 1:
+    count = 1 
+    while count != step:
+      cur = cur.next 
+      count += 1
+    print("KILL:" + str(cur.data))
+    self.remove_node(cur)
+    cur = cur.next
+    length -= 1
+    
+```    

@@ -2141,3 +2141,280 @@ def josephus_circle(self, step):
     length -= 1
     
 ```    
+
+### Doubly linked lists
+
+<p align="center">
+  <img src = "https://user-images.githubusercontent.com/69206952/181935593-2d7a47f2-f6dc-471e-9b7a-b8b8459f853f.png"/>
+</p>
+
+The doubly linked list is very similar to the singly linked list, except for the difference of the previous pointer. In a doubly linked list, a node is made up of the following components:
+
+- Data
+- Next
+- Prev
+
+The prev of the head node points to NULL while the next of the tail node also points to NULL.
+
+Let's go ahead and implement the doubly linked list in Python:
+
+```py
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        self.prev = None
+
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        pass
+
+    def prepend(self, data):
+        pass
+
+    def print_list(self):
+        pass
+```
+
+#### Append and prepend
+
+##### append
+
+```py
+def append(self, data):
+  if self.head is None:
+    new_node = Node(data)
+    self.head = new_node
+  else:
+    new_node = Node(data)
+    cur = self.head
+    while cur.next:
+      cur = cur.next
+    cur.next = new_node
+    new_node.prev = cur
+    
+```
+
+##### print_list
+
+```py
+def print_list(self):
+  cur = self.head
+  while cur:
+    print(cur.data)
+    cur = cur.next
+```
+
+##### prepend
+
+```py
+def prepend(self, data):
+  if self.head is None:
+    new_node = Node(data)
+    self.head = new_node
+  else:
+    new_node = Node(data)
+    self.head.prev = new_node
+    new_node.next = self.head
+    self.head = new_node
+    
+```    
+
+#### Add node before/after
+
+The general approach to solve this problem would be to traverse the doubly linked list and look for the key that we have to insert the new node after or before. Once we get to the node whose value matches the input key, we update the pointers to make room for the new node and insert the new node according to the position specified.
+
+##### Add node after
+
+There are two cases:
+
+1. the node that we have to insert after the new node is the last node in the DLL (doubly linked list), so that the next of that node is NULL.
+2. the node that we have to insert after the new node is not the last node in the DLL.
+
+```py
+def add_after_node(self, key, data):
+  cur = self.head
+  while cur:
+    if cur.next is None and cur.data == key:
+      self.append(data)
+      return
+    elif cur.data == key:
+      new_node = Node(data)
+      nxt = cur.next 
+      cur.next = new_node
+      new_node.next = nxt
+      new_node.prev = cur 
+      nxt.prev = new_node
+      return
+    cur = cur.next
+    
+```
+
+##### Add node before
+
+Two scenarios:
+
+1. We have to insert a new node before the head node.
+2. We have to insert a new node before a node that is NOT the head node.
+
+```py
+def add_before_node(self, key, data):
+  cur = self.head 
+  while cur:
+    if cur.prev is None and cur.data == key:
+      self.prepend(data)
+      return
+    elif cur.data == key:
+      new_node = Node(data)
+      prev = cur.prev
+      prev.next = new_node
+      cur.prev = new_node
+      new_node.next = cur
+      new_node.prev = prev
+      return 
+    cur = cur.next
+    
+```    
+
+#### Delete node
+
+##### Case 1: deleting the only node present
+
+```py
+def delete(self, key):
+        cur = self.head
+        while cur:
+            if cur.data == key and cur == self.head:
+                # Case 1:
+                if not cur.next:
+                    cur = None 
+                    self.head = None
+                    return
+            cur = cur.next
+            
+```            
+
+##### Case 2: deleting head node
+
+```py
+def delete(self, key):
+  cur = self.head
+  while cur:
+    if cur.data == key and cur == self.head:
+      # Case 1:
+      if not cur.next:
+        cur = None 
+        self.head = None
+        return
+
+      # Case 2:
+      else:
+        nxt = cur.next
+        cur.next = None 
+        nxt.prev = None
+        cur = None
+        self.head = nxt
+        return 
+    cur = cur.next
+    
+```
+
+##### Case 3: deleting node other than head where cur.next is not None
+
+```py
+def delete(self, key):
+  cur = self.head
+  while cur:
+    if cur.data == key and cur == self.head:
+      # Case 1:
+      if not cur.next:
+        cur = None 
+        self.head = None
+        return
+
+      # Case 2:
+      else:
+        nxt = cur.next
+        cur.next = None 
+        nxt.prev = None
+        cur = None
+        self.head = nxt
+        return 
+
+    elif cur.data == key:
+      # Case 3:
+      if cur.next:
+          nxt = cur.next 
+          prev = cur.prev
+          prev.next = nxt
+          nxt.prev = prev
+          cur.next = None 
+          cur.prev = None
+          cur = None
+          return
+    cur = cur.next 
+```
+
+##### Case 4: deleting node other than head where cur.next is None
+
+```py
+def delete(self, key):
+  cur = self.head
+  while cur:
+    if cur.data == key and cur == self.head:
+      # Case 1:
+      if not cur.next:
+        cur = None 
+        self.head = None
+        return
+
+      # Case 2:
+      else:
+        nxt = cur.next
+        cur.next = None 
+        nxt.prev = None
+        cur = None
+        self.head = nxt
+        return 
+
+    elif cur.data == key:
+      # Case 3:
+      if cur.next:
+          nxt = cur.next 
+          prev = cur.prev
+          prev.next = nxt
+          nxt.prev = prev
+          cur.next = None 
+          cur.prev = None
+          cur = None
+          return
+
+        # Case 4:
+      else:
+          prev = cur.prev 
+          prev.next = None 
+          cur.prev = None 
+          cur = None 
+          return 
+    cur = cur.next
+```
+
+#### Reverse
+
+```py
+def reverse(self):
+  tmp = None
+  cur = self.head
+  while cur:
+    tmp = cur.prev
+    cur.prev = cur.next
+    cur.next = tmp
+    cur = cur.prev
+  if tmp:
+    self.head = tmp.prev
+    
+```    

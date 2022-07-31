@@ -2506,3 +2506,64 @@ def plus_one(A):
     return A
     
 ```    
+
+### Two sum problem
+
+Given an array of integers, return True or False if the array has two numbers that add up to a specific target. You may assume that each input would have exactly one solution. We investigate three different approaches to solving this problem.
+
+#### Solution 1
+
+A brute-force approach that takes O($n^2$) time to solve with O(1) space where we loop through the array and create all possible pairings of elements.
+
+```py
+# Time Complexity: O(n^2)
+# Space Complexity: O(1)
+def two_sum_brute_force(A, target):
+  for i in range(len(A)-1):
+    for j in range(i+1, len(A)):
+      if A[i] + A[j] == target:
+        print(A[i], A[j])
+        return True
+  return False
+
+```
+
+#### Solution 2
+
+A slightly better approach time-wise, taking O(n) time, but worse from a space standpoint, with space complexity of O(n).
+
+```py
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def two_sum_hash_table(A, target):
+  ht = dict()
+  for i in range(len(A)):
+    if A[i] in ht:
+      print(ht[A[i]], A[i])
+      return True
+    else:
+      ht[target - A[i]] = A[i]
+  return False
+
+```
+
+#### Solution 3
+
+This approach has a time complexity of O(n) and a constant space complexity O(1).
+
+```py
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def two_sum(A, target):
+  i = 0
+  j = len(A) - 1
+  while i < j:
+    if A[i] + A[j] == target:
+      print(A[i], A[j])
+      return True
+    elif A[i] + A[j] < target:
+      i += 1
+    else:
+      j -= 1
+  return False
+```

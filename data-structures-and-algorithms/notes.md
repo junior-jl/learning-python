@@ -2418,3 +2418,91 @@ def reverse(self):
     self.head = tmp.prev
     
 ```    
+
+## Arrays
+
+### Array advance game
+
+In this game, you are given an array of non-negative integers. For example: 
+
+```
+[3,3,1,0,2,0,1]
+```
+
+Each number in the array represents the maximum you can advance in the array.
+
+#### Algorithm
+
+##### Greedy approach
+
+Let's try the _greedy_ approach in which we always advance the maximum we can at every index.
+
+For the array `[2,4,1,1,0,2,3]` it doesn't work.
+
+So, let's look at the algorithm which will solve the problem:
+
+- Iterate through each entry in an array A.
+- Track the furthest we can reach from entry (A[i] + i).
+- If for some i, we don't reach the end and that is the furthest we can reach, then we can't reach the last index. Otherwise, the end is reached.
+- i: index processed. Furthest possible to advance from i: A[i] + i
+
+```py
+def array_advance(A):
+    furthest_reached = 0
+    last_idx = len(A) - 1
+    i = 0
+    while i <= furthest_reached and furthest_reached < last_idx:
+        furthest_reached = max(furthest_reached, A[i] + i)
+        i += 1
+    return furthest_reached >= last_idx
+
+
+# True: Possible to navigate to last index in A:
+# Moves: 1,3,2
+A = [3, 3, 1, 0, 2, 0, 1]
+print(array_advance(A))
+
+# False: Not possible to navigate to last index in A:
+A = [3, 2, 0, 0, 2, 0, 1]
+print(array_advance(A))
+```
+
+### Arbitrary precision increment
+
+In this lesson, we will be considering the following:
+
+Given: An array of non-negative digits that represent a decimal integer.
+
+Problem: Add one to the integer. Assume the solution still works even if implemented in a language with finite-precision arithmetic.
+
+#### Algorithm
+
+For an array A,
+
+1. Add 1 to the rightmost digit.
+2. Propagate carry throughout the array.
+
+In Python, you can solve the problem with just one line. But this approach will not be asked in an interview. 
+
+```py
+A = [1, 4, 9]
+s = ''.join(map(str, A))
+ print(int(s) + 1)
+```
+
+Let's implement the algorithm:
+
+```py
+def plus_one(A):
+    A[-1] += 1
+    for i in reversed(range(1, len(A))):
+        if A[i] != 10:
+            break
+        A[i] = 0
+        A[i-1] += 1
+    if A[0] == 10:
+        A[0] = 1
+        A.append(0)
+    return A
+    
+```    

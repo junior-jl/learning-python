@@ -2567,3 +2567,60 @@ def two_sum(A, target):
       j -= 1
   return False
 ```
+
+### Optimal task assignment
+
+In this lesson, we will be solving the following problem:
+
+Assign tasks to workers so that the time it takes to complete all the tasks is minimized given a count of workers and an array where each element indicates the duration of a task.
+
+We wish to determine the optimal way in which to assign tasks to some workers. Each worker must work on exactly two tasks. Tasks are independent of each other, and each task takes a certain amount of time.
+
+In the greedy approach, we’ll focus on the following rule:
+
+- Pair the longest task with the shortest one.
+
+The time complexity for the algorithm will be O(nlogn) due to sorting.
+
+```py
+A = [6, 3, 2, 7, 5, 5]
+
+A = sorted(A)
+
+for i in range(len(A)//2):
+    print(A[i], A[~i])
+```
+
+The ~i is the bitwise complement operator which puts a negative sign in front of i and subtracts 1 from it.
+
+#### Intersection of two sorted arrays
+
+Given two sorted arrays, A and B, determine their intersection. What elements are common to A and B?
+
+There is a one-line solution to this problem in Python that will also work in the event when the arrays are not sorted.
+
+```py
+print(set(A).intersection(B))
+```
+
+However, since we are aware that the arrays A and B are sorted, we can use this to our advantage and solve the problem in a way that leverages this and gives us a slightly better runtime.
+
+```py
+def intersect_sorted_array(A, B):
+    i = 0
+    j = 0
+    intersection = []
+
+    while i < len(A) and j < len(B):
+        if A[i] == B[j]:
+            if i == 0 or A[i] != A[i - 1]:
+                intersection.append(A[i])
+            i += 1
+            j += 1
+        elif A[i] < B[j]:
+            i += 1
+        else:
+            j += 1
+    return intersection
+    
+```    

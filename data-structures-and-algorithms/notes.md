@@ -2624,3 +2624,108 @@ def intersect_sorted_array(A, B):
     return intersection
     
 ```    
+
+### Binary Trees
+
+It is a tree dta structure in which each node has at most two children, which are referred to as left child and right child.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/182461295-3044f83b-a27c-4d34-9694-47a3d756a2f2.png"/>
+</p>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/182461461-6ec6a4fc-81a0-4480-abb0-2280233cf3d9.png"/>
+</p>
+
+#### Depth of a node
+
+The length of the path from a node, n, to the root node. The depth node of the root node is 0.
+
+#### Height of a tree
+
+The length of the path from n to its deepest descendant. The height of the tree itself is the height of the root node, and the height of leaf nodes is always 0.
+
+#### Types of binary trees
+
+##### Complete binary tree
+
+In a complete binary tree, every level except possibly the last, is completely filled and all nodes in the last level are as far left as possible.
+
+##### Full binary tree
+
+A full binary tree (sometimes referred to as a proper or plane binary tree) is a tree in which every node has either 0 or 2 children.
+
+##### Implementation
+
+To implement a binary tree in Python, we will first implement the Node class.
+
+```py
+class Node(object):
+  def __init__(self, value):
+    self.value = value
+    self.left = None
+    self.right = None
+```
+
+In the code above, we have defined the Node class with a new style of defining classes in Python. The Node class has three attributes:
+
+1. self.value
+2. self.left
+3. self.right
+
+Implementing the BinaryTree class:
+
+```py
+class Node(object):
+  def __init__(self, value):
+    self.value = value
+    self.left = None
+    self.right = None
+    
+class BinaryTree(object):
+  def __init__(self, root):
+    self.root = Node(root)
+
+
+tree = BinaryTree(1)
+tree.root.left = Node(2)
+tree.root.right = Node(3)
+tree.root.left.left = Node(4)
+tree.root.left.right = Node(5)
+tree.root.right.left = Node(6)
+tree.root.right.right = Node(7)
+```
+
+#### Traversal algorithms
+
+##### Tree traversal
+
+It is the process of visiting each node in a tree data structure, exactly once. Unlike linked lists or one-dimensional arrays that are canonically traversed in linear order, trees may be traversed in multiple ways. They may be traversed in depth-first or breadth-first order.
+
+There are three common ways to traverse a tree in depth-first order:
+
+1. In-order
+2. Pre-order
+3. Post-order
+
+###### Pre-order traversal
+
+Algorithm:
+
+1. Check if the current node is empty/null.
+2. Display the data part of the root (or current node).
+3. Traverse the left subtree by recursively calling the pre-order method.
+4. Traverse the right subtree by recursively calling the pre-order method.
+
+```py
+def preorder_print(self, start, traversal):
+  """Root->Left->Right"""
+  if start:
+    traversal += (str(start.value) + "-")
+    traversal = self.preorder_print(start.left, traversal)
+    traversal = self.preorder_print(start.right, traversal)
+  return traversal
+```
+
+###### In-order traversal
+

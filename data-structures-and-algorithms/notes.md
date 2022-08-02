@@ -2968,4 +2968,19 @@ The height of a tree is the height of its root node.
 
 ###### Height of a node
 
-The height of a node is the number of edges on the longest path between that node and a leaf.
+The height of a node is the number of edges on the longest path between that node and a leaf. The height of a leaf node is 0.
+
+Recursively defined, the height of a node is one greater than the max of its right and left children's height.
+
+###### Implementation
+
+```py
+def height(self, node):
+  if node is None:
+    return -1
+  left_height = self.height(node.left)
+  right_height = self.height(node.right)
+  
+  return 1 + max(left_height, right_height)
+```
+

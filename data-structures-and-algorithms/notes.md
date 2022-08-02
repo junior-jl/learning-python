@@ -2729,3 +2729,243 @@ def preorder_print(self, start, traversal):
 
 ###### In-order traversal
 
+1. Check if the current node is empty/null.
+2. Traverse the left subtree by recursively calling the in-order method.
+3. Display the data part of the root (or current node).
+4. Traverse the right subtree by recursively calling the in-order method.
+
+```py
+def inorder_print(self, start, traversal):
+        """Left->Root->Right"""
+        if start:
+            traversal = self.inorder_print(start.left, traversal)
+            traversal += (str(start.value) + "-")
+            traversal = self.inorder_print(start.right, traversal)
+        return traversal
+        
+```
+
+###### Post-order traversal
+
+1. Check if the current node is empty/null.
+2. Traverse the left subtree by recursively calling the in-order method.
+3. Traverse the right subtree by recursively calling the in-order method.
+4. Display the data part of the root (or current node).
+
+```py
+def postorder_print(self, start, traversal):
+  """Left->Right->Root"""
+  if start:
+    traversal = self.postorder_print(start.left, traversal)
+    traversal = self.postorder_print(start.right, traversal)
+    traversal += (str(start.value) + "-")
+  return traversal
+  
+```
+
+###### Helper method
+
+Below is the implementation of all the tree traversal methods within the BinaryTree class. Additionally, there is a helper method `print_tree(self, traversal_type)` which will invoke the specified method according to traversal_type.
+
+```py
+class Node(object):
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+
+class BinaryTree(object):
+    def __init__(self, root):
+        self.root = Node(root)
+
+    def print_tree(self, traversal_type):
+        if traversal_type == "preorder":
+            return self.preorder_print(tree.root, "")
+        elif traversal_type == "inorder":
+            return self.inorder_print(tree.root, "")
+        elif traversal_type == "postorder":
+            return self.postorder_print(tree.root, "")
+
+        else:
+            print("Traversal type " + str(traversal_type) + " is not supported.")
+            return False
+
+    def preorder_print(self, start, traversal):
+        """Root->Left->Right"""
+        if start:
+            traversal += (str(start.value) + "-")
+            traversal = self.preorder_print(start.left, traversal)
+            traversal = self.preorder_print(start.right, traversal)
+        return traversal
+
+    def inorder_print(self, start, traversal):
+        """Left->Root->Right"""
+        if start:
+            traversal = self.inorder_print(start.left, traversal)
+            traversal += (str(start.value) + "-")
+            traversal = self.inorder_print(start.right, traversal)
+        return traversal
+
+    def postorder_print(self, start, traversal):
+        """Left->Right->Root"""
+        if start:
+            traversal = self.postorder_print(start.left, traversal)
+            traversal = self.postorder_print(start.right, traversal)
+            traversal += (str(start.value) + "-")
+        return traversal
+
+# 1-2-4-5-3-6-7-
+# 4-2-5-1-6-3-7
+# 4-5-2-6-7-3-1
+#               1
+#           /       \  
+#          2          3  
+#         /  \      /   \
+#        4    5     6   7 
+
+# Set up tree:
+tree = BinaryTree(1)
+tree.root.left = Node(2)
+tree.root.right = Node(3)
+tree.root.left.left = Node(4)
+tree.root.left.right = Node(5)
+tree.root.right.left = Node(6)
+tree.root.right.right = Node(7)
+
+print(tree.print_tree("preorder"))
+#print(tree.print_tree("inorder"))
+#print(tree.print_tree("postorder"))
+```
+
+##### Level-order traversal
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/182469779-c4fe1df1-d203-44dd-a91f-b7bf2b756edb.png"/>
+</p>
+
+To do a level-order traversal of a binary tree, we require a queue.
+
+```py
+class Queue(object):
+  def __init__(self):
+    self.items = []
+
+  def enqueue(self, item):
+    self.items.insert(0, item)
+
+  def dequeue(self):
+    if not self.is_empty():
+      return self.items.pop()
+
+  def is_empty(self):
+    return len(self.items) == 0
+
+  def peek(self):
+    if not self.is_empty():
+      return self.items[-1].value
+
+  def __len__(self):
+    return self.size()
+
+  def size(self):
+    return len(self.items)
+    
+```    
+
+Now that we have successfully implemented the Queue class, let's go ahead and implement level-order traversal:
+
+```py
+def levelorder_print(self, start):
+  if start is None:
+    return 
+
+  queue = Queue()
+  queue.enqueue(start)
+
+  traversal = ""
+  while len(queue) > 0:
+    traversal += str(queue.peek()) + "-"
+    node = queue.dequeue()
+
+    if node.left:
+      queue.enqueue(node.left)
+    if node.right:
+      queue.enqueue(node.right)
+
+  return traversal
+```
+
+##### Reverse level-order traversal
+
+We will need the Stack class:
+
+```py
+class Stack(object):
+    def __init__(self):
+        self.items = []
+
+    def __len__(self):
+        return self.size()
+     
+    def size(self):
+        return len(self.items)
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):  
+        if not self.is_empty():
+            return self.items.pop()
+
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1]
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def __str__(self):
+        s = ""
+        for i in range(len(self.items)):
+            s += str(self.items[i].value) + "-"
+        return s
+```
+
+Now that we are done with the implementation of Stack class, let's discuss `reverse_levelorder_print`:
+
+```py
+def reverse_levelorder_print(self, start):
+  if start is None:
+    return 
+
+  queue = Queue()
+  stack = Stack()
+  queue.enqueue(start)
+
+
+  traversal = ""
+  while len(queue) > 0:
+    node = queue.dequeue()
+
+    stack.push(node)
+
+    if node.right:
+      queue.enqueue(node.right)
+    if node.left:
+      queue.enqueue(node.left)
+  
+  while len(stack) > 0:
+    node = stack.pop()
+    traversal += str(node.value) + "-"
+
+  return traversal
+```
+
+##### Height of tree
+
+The height of a tree is the height of its root node.
+
+###### Height of a node
+
+The height of a node is the number of edges on the longest path between that node and a leaf.

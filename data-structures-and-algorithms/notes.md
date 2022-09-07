@@ -2984,3 +2984,84 @@ def height(self, node):
   return 1 + max(left_height, right_height)
 ```
 
+#### Binary search trees
+
+A **binary search tree** (BST) is a tree data structure in which nodes are arranged according to the BST property which is as follows:
+
+- The value of the left child of any node in a binary search tree will be less than whatever value we have in that node, and the value of the right child of a node will be greater than the value in that node.
+
+**Example:**
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/188960707-30b806f4-602c-4622-9c54-d3c88e7ef901.png"/>
+</p>
+
+##### Insertion
+
+The way we go about insertion is to start from the root node and compare the new value to be inserted with the current node's value. If the new value is less than the value of the current node, then the new value must be inserted in the left subtree of the current node. If it's greater, it must be inserted in the right subtree to satisfy the BST property.
+
+##### Search
+
+Using a similar approach as we used in the insertion in a BST, we can develop a search algorithm. Starting from the root node, we decide which subtree to traverse by comparing the value to be searched with the current node. Then we traverse to the appropriate subtree and discard the other subtree that does not contain the element we are searching for due to the BST property.
+
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/69206952/188961651-a5976954-aaf4-4c3a-9ec8-24c72a03c835.png"/>
+</p>
+
+If the BST is a linear structure, we would have to traverse _all the nodes_ to find the node we are looking for. Then, this would be a operation of O(n) in the worst case. If we have a non-linear structure for a BST, the time complexity significantly improves to O(log n).
+
+##### Implementation
+
+```py
+class Node(object):
+  def __init__(self, data):
+    self.data = data
+    self.left = None
+    self.right = None
+
+
+class BST(object):
+  def __init__(self, root):
+    self.root = Node(root)
+    
+```
+
+###### insert
+
+```py
+
+def insert(self, new_val):
+  self.insert_helper(self.root, new_val)
+
+def insert_helper(self, current, new_val):
+  if current.data < new_val:
+    if current.right:
+      self.insert_helper(current.right, new_val)
+    else:
+      current.right = Node(new_val)
+  else:
+      if current.left:
+        self.insert_helper(current.left, new_val)
+      else:
+        current.left = Node(new_val)
+        
+```
+
+###### search
+
+```py
+
+def search(self, find_val):
+  return self.search_helper(self.root, find_val)
+
+def search_helper(self, current, find_val):
+  if current:
+    if current.data == find_val:
+        return True
+    elif current.data < find_val:
+        return self.search_helper(current.right, find_val)
+    else:
+        return self.search_helper(current.left, find_val)
+        
+```        

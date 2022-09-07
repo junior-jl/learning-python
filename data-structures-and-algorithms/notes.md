@@ -3065,3 +3065,65 @@ def search_helper(self, current, find_val):
         return self.search_helper(current.left, find_val)
         
 ```        
+
+## Algorithms
+
+### Binary Search
+
+Binary search is a technique that allows you to search an ordered list of elements using a divide-and-conquer strategy. But before the discussion on binary search, let's talk about linear search.
+
+### Linear search
+
+Linear search is when you iterate through an array looking for your target element.
+
+```py
+def linear_search(data, target):
+  for i in range(len(data)):
+    if data[i] == target:
+      return True
+  return False
+```
+
+Worst-case runtime of a linear search: O(n). Binary search is more efficient than the linear search. 
+
+#### Binary search (iterative)
+
+This method assumes that the array on which the search will take place is sorted in ascending order. Here, the target element is compared with the middle element of the array following which the next chunk of the array to be searched is decided.
+
+If the target matches the middle element, we are successful. Otherwise, since the array is sorted, if the target is smaller than the middle element, it could only be in the left half of the array. Alternatively, if the target is greater than the middle element, it could be in the right half of the array. So, we exclude one half of the array from the further search and repeat the same strategy to the remaining half.
+
+```py
+def binary_search_iterative(data, target):
+	low = 0
+	high = len(data) - 1
+
+	while low <= high:
+		mid = (low + high) // 2
+		if target == data[mid]:
+			return True
+		elif target < data[mid]:
+			high = mid - 1
+		else:
+			low = mid + 1
+	return False 
+```
+
+Worst-case time complexity of a binary search (iterative): O(log n).
+
+#### Binary search (recursive)
+
+```py
+def binary_search_recursive(data, target, low, high):
+	if low > high:
+		return False
+	else:
+		mid = (low + high) // 2
+		if target == data[mid]:
+			return True
+		elif target < data[mid]:
+			return binary_search_recursive(data, target, low, mid-1)
+		else:
+			return binary_search_recursive(data, target, mid+1, high)
+```
+
+Worst-case time complexity of a binary search (recursive): O(log n).

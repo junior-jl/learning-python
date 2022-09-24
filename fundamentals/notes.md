@@ -108,7 +108,7 @@ A complex number usually takes up 32 bytes of memory.
 
 The **boolean** (or **bool**) data type allow us to choose between two values: **True** or **False**, yes, T and F capitalized.
 
-It is used to determine whther the logic of an expression or a comparison is correct.
+It is used to determine whether the logic of an expression or a comparison is correct.
 
 ## Strings
 
@@ -120,7 +120,7 @@ The length of a string can be found by the built-in function **len()**. It indic
 
 ### Indexing
 
-In a string, every character is given a numberical index based on its position. Like most programming languages, Python indexes a string from 0 to n-1 where n is its length. So, the first character in a string is on index 0.
+In a string, every character is given a numerical index based on its position. Like most programming languages, Python indexes a string from 0 to n-1 where n is its length. So, the first character in a string is on index 0.
 
 #### Accessing characters
 
@@ -165,7 +165,7 @@ This code prints different **id's** through the **id()** method.
 
 ### ASCII vs Unicode
 
-In Python 3, all strings are unicode. But older versions of Ppython support only ASCII characters. To use unicode in Python 2, preceding the string with a **u** is a must.
+In Python 3, all strings are unicode. But older versions of Python support only ASCII characters. To use unicode in Python 2, preceding the string with a **u** is a must.
 
 ```py
 string = u"This is unicode"
@@ -768,7 +768,7 @@ A parameter can be any sort of data object; from a simple integer to a huge list
 
 To return something from a function, we must use the return keyword. Keep in mind that once the **return** statement is executed, the compiler ends the function. Any remaining lines of code after the return statement will not be executed.
 
-Refactoring the **minimum()** method to reutnr the smaller value instead of printing it, we'll have the following:
+Refactoring the **minimum()** method to return the smaller value instead of printing it, we'll have the following:
 
 ```python
 def minimum(first, second):

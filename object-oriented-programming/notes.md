@@ -35,7 +35,7 @@ The illustration below shows what a **LightBulb** class should look like:
   <img src="https://user-images.githubusercontent.com/69206952/179062303-c64c2241-ad56-49c4-8abc-3a7093d3d398.png"/>
 </p>
 
-From the above illustration, you can see that the state of the object is generally modeled using _variables_ in a class, and the behaviour is modeled using _methods_. There can be many different objects of the same class. Each can be in an independent state, but all of them will share the same behaviour and characteristics.
+From the above illustration, you can see that the state of the object is generally modeled using _variables_ in a class, and the behaviour is modeled using _methods_. There can be different objects of the same class. Each can be in an independent state, but all of them will share the same behaviour and characteristics.
 
 ### User-defined data types
 
@@ -74,7 +74,7 @@ Behaviours are also referred to as member functions or methods. For consistency,
 
 They allow us to create complex applications in Python. This is why they're considered the building blocks of OOP principles.
 
-- Objects and classes are also instrumental for compartmentalizing code. Differente components can become separate classes that would interact through interfaces. These ready-made components will also be avaliable for use in future applications.
+- Objects and classes are also instrumental for compartmentalizing code. Different components can become separate classes that would interact through interfaces. These ready-made components will also be available for use in future applications.
 - The use of classes makes it easier to maintain different parts of an application since it is easier to make changes in classes.
 
 ## Declaring a class in Python
@@ -146,7 +146,7 @@ class Employee:
     department = "Human Resources"
 
 
-# cerating an object of the Employee class
+# creating an object of the Employee class
 Steve = Employee()
 
 # printing properties of Steve - an object of the Employee class
@@ -165,7 +165,7 @@ class Employee:
     department = None
 
 
-# cerating an object of the Employee class
+# creating an object of the Employee class
 Steve = Employee()
 
 # assigning values to properties of Steve - an object of the Employee class
@@ -179,7 +179,7 @@ print("Salary", Steve.salary)
 print("Department:", Steve.department)
 ```
 
-#### Creating properties outside of a class
+#### Creating properties outside a class
 
 Python provides a feature to create properties of an object **outside** the class. Let's see an example of this by extending the example of Employee class above.
 
@@ -191,7 +191,7 @@ class Employee:
     department = None
 
 
-# cerating an object of the Employee class
+# creating an object of the Employee class
 Steve = Employee()
 
 # assigning values to properties of Steve - an object of the Employee class
@@ -216,7 +216,7 @@ To _initialize_ an object of a class we use an **initializer**. It is a special 
 
 The double underscores mean that is a special method that the Python interpreter will treat as a special case.
 
-The initializer is a special method because it does not have a return type. The first parameter of **\_\_init\_\_** is **self**, which is a way to refer to the object beign initialized. It is always a good practice to define it as the first member method in the class definition.
+The initializer is a special method because it does not have a return type. The first parameter of **\_\_init\_\_** is **self**, which is a way to refer to the object being initialized. It is always a good practice to define it as the first member method in the class definition.
 
 Initializers are called when an object of a class is created. Example:
 
@@ -362,7 +362,7 @@ There are three types of methods in Python:
 2. class methods
 3. static methods
 
-Instance methods are the most commonly used in Python, so the term **methods** apply to them. Class methods and static methods will be name explicitly as they are.
+Instance methods are the most commonly used in Python, so the term **methods** apply to them. Class methods and static methods will be named explicitly as they are.
 
 #### The purpose of methods
 
@@ -384,7 +384,7 @@ The **return** statement makes it possible to get the value from the method. It 
 
 #### The self argument
 
-One of the major differences between functions and methods in Python is the first argument in the method definition. Conventionally, this is name **self**. 
+One of the major differences between functions and methods in Python is the first argument in the method definition. Conventionally, this is named **self**. 
 
 This pseudo-variable provides a reference to the calling object, that is the object to which the method or property belongs to. If the user does not mention the **self** as the first argument, the first parameter will be treated for reference to the object.
 
@@ -392,7 +392,7 @@ The **self** argument only needs to be passed in the method definition and not w
 
 Given below is an example of implementing methods in a class:
 
-```
+```python
 class Employee:
   def __init__(self, ID=None, salary=None, department=None):
     self.ID = ID
@@ -456,7 +456,7 @@ class Employee:
         return (self.salary / 30)
 
 
-# cerating an object of the Employee class
+# creating an object of the Employee class
 Steve = Employee()
 
 # Printing properties of Steve
@@ -501,7 +501,7 @@ e = 5
 
 ##### Advantages of method overloading
 
-One might wonder that we could simply created new methods to perform different jobs rather than overloading the same method. However, under the hodd, overloading saves us memory in the system.
+One might wonder that we could have simply created new methods to perform different jobs rather than overloading the same method. However, under the hood, overloading saves us memory in the system.
 
 An obvious benefit is that the code becomes simple and clean. We don't have to keep track of different methods.
 
@@ -546,7 +546,7 @@ To declare a method as a static method, we used the decorator **@staticmethod**.
 class MyClass:
   
   @staticmethod
-  def demo()
+  def demo():
     print("I am a static method")
 ```
 
@@ -573,7 +573,7 @@ In Python, we can impose access restrictions on different data members and membe
 
 ### Public attributes
 
-**Public attributes** are those that can be accessed inside the class and outside the class. By default, all methods and properties in a class are publicly avaliable. If we want to suggest that a method should not be used publicly, we have to declare it as private explicitly.
+**Public attributes** are those that can be accessed inside the class and outside the class. By default, all methods and properties in a class are publicly available. If we want to suggest that a method should not be used publicly, we have to declare it as private explicitly.
 
 Example:
 
@@ -599,7 +599,7 @@ In the code above, the properties ID and salary and the method **displayID()** a
 
 Private attributes cannot be accessed directly from outside the class but can be accessed from inside the class.
 
-The aim is to keep it hiddent from the users and other classes. Unlike in many different languages, it is not a widespread practice in Python to keep the data members private since we do not want to create hindrances for the users. We can make members private using the double underscore **\_\_** prefix. Trying to access private attributes in the main code will generate an _error_. An example is shown below.
+The aim is to keep it hidden from the users and other classes. Unlike in different languages, it is not a widespread practice in Python to keep the data members private since we do not want to create hindrances for the users. We can make members private using the double underscore **\_\_** prefix. Trying to access private attributes in the main code will generate an _error_. An example is shown below.
 
 ```python
 class Employee:
@@ -656,7 +656,7 @@ Steve.__displayID()  # this will generate an error
 
 As discussed above, it is not common to have private variables in Python.
 
-Properties and methods with the double underscore prefix are usually present to make sure that the user does not _carelessly_ access them. Python allows for free hand to the user to avoid any future complications in the code. If the user believes it is **absolutely necessary** to access a private property or a method, they can access it using the \_\<ClassName\> prefix for the property or method. An example of this is shown below:
+Properties and methods with the double underscore prefix are usually present to make sure that the user does not _carelessly_ access them. Python allows for free hand to the user to avoid any future complications in the code. If the user believes it is **absolutely necessary** to access a private property or a method, they can access it using the _ClassName prefix for the property or method. An example of this is shown below:
   
 ```python
   
@@ -693,7 +693,7 @@ Encapsulation is a fundamental programming technique used to achieve data hiding
 
 A class can be thought of as a **capsule** having methods and properties inside it. When encapsulating classes, a good convention is to de clare all variables of a class **private**. This will restrict direct access by the code outside that class.
 
-Now, to allow the outside world to communicate with the class, one has to implement **public** methods. These methods are called **getters** and **setters**
+Now, to allow the outside world to communicate with the class, one has to implement **public** methods. These methods are called **getters** and **setters**.
 
 ##### Advantages of encapsulation
 
@@ -745,7 +745,7 @@ An elementary **User** class will be modeled as:
 
 - having a property **userName**
 - having a property **password**
-- A method named **login()** to grant accesss
+- A method named **login()** to grant access
 
 ##### A bad example
 
@@ -796,7 +796,7 @@ class User:
 Steve = User("Steve", "12345")
 Steve.login("steve", "12345")  # Grants access because credentials are valid
 
-# does not grant access since the credentails are invalid
+# does not grant access since the credentials are invalid
 Steve.login("steve", "6789")
 Steve.__password  # compilation error will occur due to this line
 ```
@@ -836,7 +836,7 @@ In Python, whenever we create a **class**, it is, by default, a subclass of the 
 In inheritance, in order to create a new class based on an existing class, we use the following terminology:
 
 - Parent class (super class or base class): this class allows the _reuse_ of its **public** properties in another class.
-- Child class (sub class or derived class): this class _inherits_ or _extends_ the superclass.
+- Child class (subclass or derived class): this class _inherits_ or _extends_ the superclass.
 
 ### Syntax
 
@@ -844,10 +844,10 @@ In Python, to implement inheritance, the syntax is quite similar to the basic cl
 
 ```python
 class ParentClass:
-  # attributes of the parent class
+    # attributes of the parent class
   
 class ChildClass(ParentClass):
-  # attributes of the child class
+    # attributes of the child class
 ```
 
 #### Example
@@ -892,7 +892,7 @@ The use of **super()** comes into play when we implement inheritance. It is used
 
 #### Accessing parent class properties
 
-Consider the fields name **fuelCap** defined inside a Vehicle class to keep track of the _fuel capacity_ of a vehicle. Another class named Car extends from this Vehicle class. We declare a **class property** inside the Car class with the same name, i.e., fuelCap, but with a differnt value. Now, if we want to refer to the fuelCap field of the parent class inside the child class, we will have to use the **super()** function.
+Consider the fields name **fuelCap** defined inside a Vehicle class to keep track of the _fuel capacity_ of a vehicle. Another class named Car extends from this Vehicle class. We declare a **class property** inside the Car class with the same name, i.e., fuelCap, but with a different value. Now, if we want to refer to the fuelCap field of the parent class inside the child class, we will have to use the **super()** function.
 
 ```python
 class Vehicle:  # defining the parent class
@@ -937,7 +937,7 @@ obj1.display()  # calling the Car class method display()
 
 #### Using with initializers
 
-Another essential use of the function super() is to call the initializer of the parent class from inside the initalizer of the child class.
+Another essential use of the function super() is to call the initializer of the parent class from inside the initializer of the child class.
 
 Below, we have two codes that perform the same way to show that the call to super() in a method or an initializer is not necessarily in the first line of the method.
 
@@ -1241,7 +1241,7 @@ Suppose you put the same code in different classes, but what happens when you ha
 
 #### Extensibility
 
-It provides an easy way to upgrade or enhance specific parts of a product wihtout changing the core attributes. An existing class can act as a base class from which a new class with upgraded features can be derived.
+It provides an easy way to upgrade or enhance specific parts of a product without changing the core attributes. An existing class can act as a base class from which a new class with upgraded features can be derived.
 
 In the example above, you realize at a later point that you have to diversify this banking application by adding another class for MoneyMarketAccount. So, rather than implementing this class from scratch, you can extend it from the existing BankAccount class as a starting point. You can also reuse its attributes that are common with MoneyMarketAccount.
 
@@ -1381,14 +1381,14 @@ class Circle(Shape):
 
 It is the process of redefining a parent class's method in a subclass. In the previous example, the Rectangle and Circle classes were overriding the getArea() method from the Shape class. In this case:
 
-- the method in the parent class is called the **overriden method**.
+- the method in the parent class is called the **overridden method**.
 - the methods in the child classes are called the **overriding methods**.
 
 #### Advantages and key features of method overriding
 
 - The derived classes can give their own specific implementations to inherited methods without modifying the parent class methods.
 - For any method, a child class can use the implementation in the parent class or make its own implementation.
-- Method overriding needes inheritance, and there should be at least one derived class to implement it.
+- Method overriding needs inheritance, and there should be at least one derived class to implement it.
 - The methods in the derived classes usually have a dissimilar implementation.
 
 ### Operator overloading
@@ -1409,7 +1409,7 @@ moneymaker
 
 #### Overloading operators for a user-defined class
 
-When a class is defined, its objects can interact with each other through the operators, but is is necessary to define the behaviour of these operators through operator overloading.
+When a class is defined, its objects can interact with each other through the operators, but is necessary to define the behaviour of these operators through operator overloading.
 
 We are going to implement a class that represents a complex number. It consists of a real part and an imaginary part.
 
@@ -1522,7 +1522,7 @@ Meow meow
 ```
 
 - The type of **animal** is not defined in the definition of the method Sound.
-- Type of animal is determined when the method is called, so it does not matter which object type you are passing as a parameter in the Sound() method, what matters is that the Speak() method shoudl be defined in all the classes whose objects are passed in the Sound() method.
+- Type of animal is determined when the method is called, so it does not matter which object type you are passing as a parameter in the Sound() method, what matters is that the Speak() method should be defined in all the classes whose objects are passed in the Sound() method.
 - We can use any property or method of animal in the AnimalSound class as long as it is declared in that class.
 
 ### Abstract base classes
@@ -1616,7 +1616,7 @@ class Square(Shape):
 
 
 square = Square(4)
-# this will code will not compile since abstarct methods have not been
+# this will code will not compile since abstract methods have not been
 # defined in the child class, Square
 ```
 
@@ -1678,7 +1678,7 @@ class Square(Shape):
 
 
 square = Square(4)
-# this code will not generate an error since abastract methods have been
+# this code will not generate an error since abstract methods have been
 # defined in the child class, Square
 ```
 

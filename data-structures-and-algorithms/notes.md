@@ -149,7 +149,7 @@ print(num_list)
 
 In the code above, we create an empty list. This can always be done by simply using empty square brackets [ ].
 
-To add an element at a particular index in the list, we can use the **inser()** method.
+To add an element at a particular index in the list, we can use the **insert()** method.
 
 ```
 aList.insert(index, newElement)
@@ -321,7 +321,7 @@ nums_double = [n * 2 for n in nums if n % 4 == 0]
 
 List comprehension can also be performed on more than one list. The number of for loops in the comprehension will correspond to the number of lists we're using.
 
-Let's write a list comprehension which creates tuples out of the values in two lists when their sum is greater than 100. These tuples are the elemnents of the new list.
+Let's write a list comprehension which creates tuples out of the values in two lists when their sum is greater than 100. These tuples are the elements of the new list.
 
 ```python
 list1 = [30, 50, 110, 40, 15, 75]
@@ -598,7 +598,7 @@ phone_book = {"Batman": 468426,
 
 second_phone_book = {"Catwoman": 67423, "Jaime": 237734, "Godzilla": 37623}
 
-# Add secondphone_book to phone_book
+# Add second_phone_book to phone_book
 phone_book.update(second_phone_book)
 print(phone_book)
 ```
@@ -966,7 +966,7 @@ Popping is when we take the top book of the stack and put it down. This implies 
 
 #### Peek
 
-Another thing that we can do is view the top element of the stack so we can ask the data structure: "What's the top element?" and it can give that to us using the _peek_ operation.
+Another thing that we can do is view the top element of the stack, so we can ask the data structure: "What's the top element?" and it can give that to us using the _peek_ operation.
 
 Now we are going to create a stack class, and the constructor of the class is going to initialize a Python list.
 
@@ -1031,7 +1031,7 @@ class Stack():
         return self.items
 ```
 
-Another helpful method we could have is a method called **is_empty**. It will return whether or not the stack is empty.
+Another helpful method we could have is a method called **is_empty**. It will return whether the stack is empty.
 
 ```python
 class Stack():
@@ -1197,7 +1197,7 @@ print(reverse_string(stack, input_str))
 
 Output: `Welcome to Educative!`
 
-I made a little modification in the code and it worked as well.
+I made a little modification in the code, and it worked as well.
 
 ```python
 from stack import Stack
@@ -1311,7 +1311,7 @@ class LinkedList:
     self.head = None
     
   def append(self, data):
-    new_noed = Node(data)
+    new_node = Node(data)
     
 ```
 
@@ -1339,7 +1339,7 @@ class LinkedList:
 
 ###### Non-empty linked list case
 
-We have new_node that we create, and we want to append it to the linked list. We can start from the head pointer and then move through each of the nodes in the linked list unitl we get to the end, i.e., None. Once we arrive at the location that we want to insert the new_node at, we insert as shown below:
+We have new_node that we create, and we want to append it to the linked list. We can start from the head pointer and then move through each of the nodes in the linked list until we get to the end, i.e., None. Once we arrive at the location that we want to insert the new_node at, we insert as shown below:
 
 ```python
 class Node:
@@ -1823,7 +1823,7 @@ else:
 ##### Iterative implementation
 
 ```py
-def count_occurences_iterative(self, data):
+def count_occurrences_iterative(self, data):
   count = 0
   cur = self.head
   while cur:
@@ -1836,7 +1836,7 @@ def count_occurences_iterative(self, data):
 ##### Recursive implementation
 
 ```py
-def count_occurences_recursive(self, node, data):
+def count_occurrences_recursive(self, node, data):
   if not node:
       return 0 
   if node.data == data:
@@ -1848,7 +1848,7 @@ def count_occurences_recursive(self, node, data):
 
 #### Rotate
 
-To solve this problem, we make use of two pointers p and q. p points to the pivot node while q points to the end of the linked list. Once the pointers are rightly positioned, we update the last element, and instead of making it point to None, we make it point to the head of the linked list. After this step we achive a circular linked list. Now we have to fix the end of the linked list. THerefore, we update the head of the linked list, which will be the next element after the pivot node, as the pivot node has to be the last node. Finally, we sett **p.next** to **None**, which breaks up the circular linked list and makes **p** the last element of our rotated linked list.
+To solve this problem, we make use of two pointers p and q. p points to the pivot node while q points to the end of the linked list. Once the pointers are rightly positioned, we update the last element, and instead of making it point to None, we make it point to the head of the linked list. After this step we achieve a circular linked list. Now we have to fix the end of the linked list. Therefore, we update the head of the linked list, which will be the next element after the pivot node, as the pivot node has to be the last node. Finally, we set **p.next** to **None**, which breaks up the circular linked list and makes **p** the last element of our rotated linked list.
 
 ```py
 def rotate(self, k):
@@ -3009,7 +3009,7 @@ Using a similar approach as we used in the insertion in a BST, we can develop a 
   <img src="https://user-images.githubusercontent.com/69206952/188961651-a5976954-aaf4-4c3a-9ec8-24c72a03c835.png"/>
 </p>
 
-If the BST is a linear structure, we would have to traverse _all the nodes_ to find the node we are looking for. Then, this would be a operation of O(n) in the worst case. If we have a non-linear structure for a BST, the time complexity significantly improves to O(log n).
+If the BST is a linear structure, we would have to traverse _all the nodes_ to find the node we are looking for. Then, this would be an operation of O(n) in the worst case. If we have a non-linear structure for a BST, the time complexity significantly improves to O(log n).
 
 ##### Implementation
 

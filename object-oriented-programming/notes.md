@@ -691,7 +691,7 @@ Take the doctor-patient model. In the case of an illness, the patient consults t
 
 Encapsulation is a fundamental programming technique used to achieve data hiding in OOP. It refers to binding **data** and the **methods to manipulate that data** together in a single _unit_, that is, class.
 
-A class can be thought of as a **capsule** having methods and properties inside it. When encapsulating classes, a good convention is to de clare all variables of a class **private**. This will restrict direct access by the code outside that class.
+A class can be thought of as a **capsule** having methods and properties inside it. When encapsulating classes, a good convention is to declare all variables of a class **private**. This will restrict direct access by the code outside that class.
 
 Now, to allow the outside world to communicate with the class, one has to implement **public** methods. These methods are called **getters** and **setters**.
 
@@ -817,13 +817,14 @@ Inheritance provides a way to create a new class from an existing class. The new
 - Python **IS A** programming language
 - Car **IS A** vehicle
 
-So, we can conclude that we can build new classes by extending _existing classes_
+So, we can conclude that we can build new classes by extending _existing classes_.
 
-Existing class | Derived class
-:--: | :--:
-Shape | Square
-Programming language | Python
-Vehicle | Car
+|     Existing Class     |  Derived class  |
+|:----------------------:|:---------------:|
+|         Shape          |     Square      |
+|  Programming language  |     Python      |
+|        Vehicle         |       Car       |
+
 
 ### The Python object class
 
@@ -1454,8 +1455,18 @@ imag of obj4: 2
 
 #### Special functions for some common operators
 
-Operators | Method
-:--: | :--:
+| Operators |            Method             |
+|:---------:|:-----------------------------:|
+|    \+     |   \_\_add\_\_ (self, other)   |
+|    \-     |   \_\_sub\_\_ (self, other)   |
+|     /     | \_\_truediv\_\_ (self, other) |
+|    \*     |   \_\_mul\_\_ (self, other)   |
+|     <     |   \_\_lt\_\_ (self, other)    |
+|     >     |   \_\_gt\_\_ (self, other)    |
+|    ==     |   \_\_eq\_\_ (self, other)    |
+
+| Operators | Method |
+| :--: | :--: |
 \+ | \_\_add\_\_ (self, other)
 \- | \_\_sub\_\_ (self, other)
 / | \_\_truediv\_\_ (self, other)
@@ -1716,7 +1727,7 @@ In OOP, **association** is the common term for both the **has-a** and **part-of*
 
 ### Aggregation
 
-Aggregation follow the **has-a** model. This creates a parent-child relationship between to classes, with one class owning the object of another.
+Aggregation follow the **has-a** model. This creates a parent-child relationship between two classes, with one class owning the object of another.
 
 #### Independent lifetimes
 

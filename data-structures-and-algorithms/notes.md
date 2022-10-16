@@ -742,7 +742,7 @@ A union of two sets is the collection of all unique elements from both sets.
   <img src="https://user-images.githubusercontent.com/69206952/180581675-facb74a2-505f-4c48-979d-653b9ceb9b4b.png"/>
 </p>
 
-In Python, union can be performed using either the pipe operator \|, or the **union()** method.
+In Python, union can be performed using either the pipe operator |, or the **union()** method.
 
 ```python
 set_A = {1, 2, 3, 4}
@@ -765,7 +765,7 @@ Output:
 
 The intersection of two sets is the collection of unique elements which are common between them.
 
-In Python, intersection can be performed using either the \& operator or the **intersection()** method.
+In Python, intersection can be performed using either the & operator or the **intersection()** method.
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/69206952/180581806-b5d4ceed-3516-46fa-8fc8-0eeec540e245.png"/>
@@ -1246,8 +1246,8 @@ Every linked list consists of nodes. Every node has two components:
 |                                                   | Arrays | Linked lists |
 |:-------------------------------------------------:|:------:|:------------:|
 | Insertion/deletion at the beginning given a value |  O(n)  |     O(1)     |
-|                   Access element                  |  O(1)  |     O(n)     |
-|                 Contiguous memory                 |   Yes  |      No      |
+|                  Access element                   |  O(1)  |     O(n)     |
+|                 Contiguous memory                 |  Yes   |      No      |
 
 ##### Insertion/deletion
 
@@ -1804,18 +1804,19 @@ def print_nth_from_last(self, n):
 I implemented a third solution that might take more time, but it works:
 
 ```py
-self.reverse_recursive()
-i = self.head
-c = 1
-while c is not n:
-  i = i.next
-  c += 1
-if i:
-  self.reverse_recursive()
-  return i.data
-else:
-  self.reverse_recursive()
-  return None
+def print_nth_from_last(self, n):
+    self.reverse_recursive()
+    i = self.head
+    c = 1
+    while c is not n:
+      i = i.next
+      c += 1
+    if i:
+      self.reverse_recursive()
+      return i.data
+    else:
+      self.reverse_recursive()
+      return None
 ```
 
 #### Count occurrences

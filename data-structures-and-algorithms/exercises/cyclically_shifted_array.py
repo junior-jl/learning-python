@@ -9,6 +9,13 @@
 # Your task is to return the index of the smallest number in the list A (cyclically shifted array)
 # from the function find(A) given in the code widget below.
 
+# Using Python built-in functions it is pretty straightforward:
+def find(A):
+    return A.index(min(A))
+
+# Educative solution (I struggled a little):
+
+
 def find(A):
     low = 0
     high = len(A) - 1
@@ -20,14 +27,3 @@ def find(A):
             high = mid
 
     return low
-
-
-print(find([1, 2, 3, 4, 5, 6, 7]))
-print(find([2, 3, 4, 5, 6, 7, 1]))
-print(find([3, 4, 5, 6, 7, 1, 2]))
-print(find([4, 5, 6, 7, 1, 2, 3]))
-print(find([5, 6, 7, 1, 2, 3, 4]))
-print(find([6, 7, 1, 2, 3, 4, 5]))
-print(find([7, 1, 2, 3, 4, 5, 6]))
-
-

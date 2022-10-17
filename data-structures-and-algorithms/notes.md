@@ -2077,7 +2077,7 @@ def __len__(self):
   
 ```
 
-The \_\_len\_\_ method has been defined with underscores before and after the len keyword so that it overrides the len method to operate on a circular linked list.
+The __len__ method has been defined with underscores before and after the len keyword so that it overrides the len method to operate on a circular linked list.
 
 ##### Implementation
 
@@ -2125,6 +2125,28 @@ Josephus problem is related to this concept. In this problem, people are standin
 For example, if we have n people, and k-1 people are skipped every time, it means that the kth person is executed. Here, k is the step-size.
 
 To solve this problem, we will tweak the remove method from one of the previous lessons so that we can remove nodes by passing the node itself instead of a key. To avoid confusion, we’ll use the code from remove and paste it in a new method called remove_node with some minor modifications.
+
+```py
+def remove_node(self, node):
+  if self.head == node:
+    cur = self.head 
+    while cur.next != self.head:
+      cur = cur.next
+    if self.head == self.head.next:
+      self.head = None
+    else:
+      cur.next = self.head.next 
+      self.head = self.head.next
+  else:
+    cur = self.head 
+    prev = None
+    while cur.next != self.head:
+      prev = cur 
+      cur = cur.next 
+      if cur == node:
+        prev.next = cur.next
+        cur = cur.next
+```
 
 ```py
 def josephus_circle(self, step):
@@ -2488,7 +2510,7 @@ In Python, you can solve the problem with just one line. But this approach will 
 ```py
 A = [1, 4, 9]
 s = ''.join(map(str, A))
- print(int(s) + 1)
+print(int(s) + 1)
 ```
 
 Let's implement the algorithm:
@@ -2514,7 +2536,7 @@ Given an array of integers, return True or False if the array has two numbers th
 
 #### Solution 1
 
-A brute-force approach that takes O($n^2$) time to solve with O(1) space where we loop through the array and create all possible pairings of elements.
+A brute-force approach that takes O$(n^2)$ time to solve with O(1) space where we loop through the array and create all possible pairings of elements.
 
 ```py
 # Time Complexity: O(n^2)
@@ -2628,7 +2650,7 @@ def intersect_sorted_array(A, B):
 
 ### Binary Trees
 
-It is a tree dta structure in which each node has at most two children, which are referred to as left child and right child.
+It is a tree data structure in which each node has at most two children, which are referred to as left child and right child.
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/69206952/182461295-3044f83b-a27c-4d34-9694-47a3d756a2f2.png"/>
@@ -3128,3 +3150,288 @@ def binary_search_recursive(data, target, low, high):
 ```
 
 Worst-case time complexity of a binary search (recursive): O(log n).
+
+### Find the closest number
+
+Given a sorted array and a target number, our goal is to find a number in the array that is closest to the target number. We will be making use of a binary search to solve this problem.
+
+```py
+A1 = [1, 2, 4, 5, 6, 6, 8, 9]
+A2 = [2, 5, 6, 7, 8, 8, 9]
+
+
+def find_closest_num(A, target):
+    min_diff = min_diff_left = min_diff_right = float("inf")
+    low = 0
+    high = len(A) - 1
+    closest_num = None
+
+    # Edge cases for empty list or list
+    # with only one element:
+    if len(A) == 0:
+        return None
+    if len(A) == 1:
+        return A[0]
+
+    while low <= high:
+        mid = (low + high)//2
+
+        # Ensure you do not read beyond the bounds
+        # of the list.
+        if mid+1 < len(A):
+            min_diff_right = abs(A[mid + 1] - target)
+        if mid > 0:
+            min_diff_left = abs(A[mid - 1] - target)
+
+        # Check if the absolute value between left
+        # and right elements are smaller than any
+        # seen prior.
+        if min_diff_left < min_diff:
+            min_diff = min_diff_left
+            closest_num = A[mid - 1]
+
+        if min_diff_right < min_diff:
+            min_diff = min_diff_right
+            closest_num = A[mid + 1]
+
+        # Move the mid-point appropriately as is done
+        # via binary search.
+        if A[mid] < target:
+            low = mid + 1
+        elif A[mid] > target:
+            high = mid - 1
+            if high < 0:
+                return A[mid]
+        # If the element itself is the target, the closest
+        # number to it is itself. Return the number.
+        else:
+            return A[mid]
+    return closest_num
+
+
+print(find_closest_num(A1, 11))
+print(find_closest_num(A2, 4))
+```
+
+### Find fixed number
+
+A fixed point in an array A is an index such that A[i] is equal to i.
+
+Naive solution:
+```py
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def find_fixed_point_linear(A):
+    for i in range(len(A)):
+        if A[i] == i:
+            return A[i]
+    return None
+```
+
+Better solution:
+```python
+# Time Complexity: O(log n)
+# Space Complexity: O(1)
+def find_fixed_point(A):
+    low = 0
+    high = len(A) - 1
+
+    while low <= high:
+        mid = (low + high)//2
+
+        if A[mid] < mid:
+            low = mid + 1
+        elif A[mid] > mid:
+            high = mid - 1
+        else:
+            return A[mid]
+    return None
+```
+
+### Find Bitonic Peak
+
+A bitonic sequence is a sequence of integers such that:
+
+$$ 
+x_0 < ... < x_k > ... > x_{n-1} 
+$$
+for some k, $ 0 <= k < n $
+
+An array that is bitonically sorted is an array that starts off with increasing terms and then concludes with decreasing terms. In any such sequence, there is a **peak** element which is the largest element in the sequence. 
+
+For example:
+
+``1, 2, 3, 4, 5, 4, 3, 2, 1``
+
+is a bitonic sequence. In the example above, the peak element is 5.
+
+```python
+def find_highest_number(A):
+    low = 0
+    high = len(A) - 1
+
+    # Require at least 3 elements for a bitonic sequence.
+    if len(A) < 3:
+        return None
+
+    while low <= high:
+        mid = (low + high)//2
+
+        mid_left = A[mid - 1] if mid - 1 >=0 else float("-inf")
+        mid_right = A[mid + 1] if mid + 1 < len(A) else float("inf")
+
+        if mid_left < A[mid] and mid_right > A[mid]:
+            low = mid + 1
+        elif mid_left > A[mid] and mid_right < A[mid]:
+            high = mid - 1
+        elif mid_left < A[mid] and mid_right < A[mid]:
+            return A[mid]
+    return None
+
+# Peak element is "5".
+A = [1, 2, 3, 4, 5, 4, 3, 2, 1]
+print(find_highest_number(A))
+A = [1, 6, 5, 4, 3, 2, 1]
+print(find_highest_number(A))
+A = [1, 2, 3, 4, 5]
+print(find_highest_number(A))
+A = [5, 4, 3, 2, 1]
+print(find_highest_number(A))
+```
+
+Output:
+
+```
+5
+6
+None
+5
+```
+
+### Find first entry in list with duplicates
+
+Let's write a function that takes an array of sorted integers and a key and returns the index of the first occurrence of that key from the array.
+
+Naive solution:
+```python
+def find(A,target):
+  for i in range(len(A)):
+    if A[i] == target:
+      return i
+    return None
+```
+
+Solution using linear search:
+
+```python
+def find(A, target):
+    low = 0
+    high = len(A) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+
+        if A[mid] < target:
+            low = mid + 1
+        elif A[mid] > target:
+            high = mid - 1
+        else:
+            if mid - 1 < 0:
+                return mid
+            if A[mid - 1] != target:
+                return mid
+            high = mid - 1
+
+A = [-14, -10, 2, 108, 108, 243, 285, 285, 285, 401]
+target = 108
+x = find(A, target)
+print(x)
+```
+
+### Python's Bisect Method
+
+The `bisect` module in Python has a built-in binary search method. It can be used to search for an element in a sorted list.
+
+#### `bisect_left()`
+
+The bisect_left function finds the index of the target element. In the event where duplicate entries are satisfying the target element, the bisect_left function returns the left-most occurrence.
+
+```python
+# Import allows us to make use of the bisect module.
+import bisect
+
+# This sorted list will be used throughout this lesson
+# to showcase the functionality of the "bisect" method.
+A = [-14, -10, 2, 108, 108, 243, 285, 285, 285, 401]
+
+# -10 is at index 1
+print(bisect.bisect_left(A, -10))
+
+# First occurrence of 285 is at index 6
+print(bisect.bisect_left(A, 285))
+```
+
+#### `bisect_right()`
+
+```python
+# Import allows us to make use of the bisect module.
+import bisect
+
+# This sorted list will be used throughout this lesson
+# to showcase the functionality of the "bisect" method.
+A = [-14, -10, 2, 108, 108, 243, 285, 285, 285, 401]
+
+# Index position to right of -10 is 2.
+print(bisect.bisect_right(A, -10)) 
+
+# Index position after last occurrence of 285 is 9.
+print(bisect.bisect_right(A, 285))
+```
+
+#### `bisect()`
+
+This function is equivalent to `bisect_right`.
+
+```python
+# Import allows us to make use of the bisect module.
+import bisect
+
+# This sorted list will be used throughout this lesson
+# to showcase the functionality of the "bisect" method.
+A = [-14, -10, 2, 108, 108, 243, 285, 285, 285, 401]
+
+# Index position to right of -10 is 2. (Same as bisect_right)
+print(bisect.bisect(A, -10)) 
+
+# Index position after last occurrence of 285 is 9. (Same as bisect_right).
+print(bisect.bisect(A, 285))
+```
+
+#### `insort_left()` and `insort_right()`
+
+Given that the list A is sorted, it is possible to insert elements into A so that the list remains sorted.
+
+```python
+# Import allows us to make use of the bisect module.
+import bisect
+
+# This sorted list will be used throughout this lesson
+# to showcase the functionality of the "bisect" method.
+A = [-14, -10, 2, 108, 108, 243, 285, 285, 285, 401]
+
+
+print(A)
+bisect.insort_left(A, 108)
+print(A)
+
+bisect.insort_right(A, 108)
+print(A)
+```
+
+Output:
+
+```
+[-14, -10, 2, 108, 108, 243, 285, 285, 285, 401]
+[-14, -10, 2, 108, 108, 108, 243, 285, 285, 285, 401]
+[-14, -10, 2, 108, 108, 108, 108, 243, 285, 285, 285, 401]
+```
